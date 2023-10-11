@@ -25,54 +25,13 @@
     <link rel="stylesheet" href="../public/css/lightbox.css">
 
     <link rel="stylesheet" href="../public/css/order-style.css">
-    
-    <style>
-        .receipt {
-            max-width: 80%;
-            margin: 0 auto;
-            border: 1px solid #ccc;
-            padding: 2em;
-            background-color: #f9f9f9;
-        }
-
-        .receipt-header {
-            text-align: center;
-            margin-bottom: 2em;
-        }
-
-        .receipt-items {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .receipt-items th, .receipt-items td {
-            border: 1px solid #ccc;
-            padding: 1em;
-            text-align: left;
-            font-size: 1em;
-        }
-
-        .receipt-items th {
-            background-color: #f2f2f2;
-        }
-
-        .receipt-items td:last-child {
-            text-align: right;
-        }
-
-        @media (max-width: 600px) {
-            .receipt {
-                padding: 1em;
-            }
-        }
-    </style>
 
     </head>
 
     <body>
     
-     <!-- ***** Header Area Start ***** -->
-     <header class="header-area header-sticky">
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -86,11 +45,9 @@
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="index.html">Home</a></li>
                             <li class="scroll-to-section"><a href="">View Menu</a></li>
-                            <li class="scroll-to-section"><a href="">View Orders</a></li>
-                            <li class="scroll-to-section"><a href="login.html" id="login-color">Login</a></li>
-                            <li class="scroll-to-section"><a href="signup.html" id="login-color">Sign-up</a></li>
+                            <li class="scroll-to-section"><a href="order-status.html">View Orders</a></li>
                             <li class="scroll-to-section"><a href="" id="login-color">Logout</a></li>
-                        </ul>        
+                        </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
@@ -108,7 +65,7 @@
     </div>
 
     <!-- ***** Order Area Starts ***** -->
-    <section class="section" id="chefs">
+    <section class="section" id="header-fix-section">
         <div class="container">
             <div class="row">
                 <div class="receipt">
@@ -149,12 +106,11 @@
                             <td colspan="2" style="text-align: right;"><strong>Total: P1,728.00</strong></td>
                         </tr>
                     </table>
-                    <br>
-                    <button type="button" class="button" href="index.html">Back to main</button>
-                    <button type="button" class="button" href="order-status.html">View Status</button>
                 </div>
-
-                <!-- ***** Add Content Here ***** -->
+            </div>
+            <div class="center-button">
+                <a href="index.html" class="button-style">Back to Home</a>
+                <a href="order-status.html" class="button-style">View Order Status</a>
             </div>
         </div>
     </section>
