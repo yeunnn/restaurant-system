@@ -33,4 +33,17 @@
     line-height: 2.6;
     font-weight: 500;
   }
+.button{
+  top:50%;
+  background-color:#ea5008;
+  color: #fff;
+  border:none;
+  border-radius:10px;
+  box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+}
+.button:hover{
+  color:#003C9D;
+  background-color:#fff;
+  border:2px #003C9D solid;
+}
 
