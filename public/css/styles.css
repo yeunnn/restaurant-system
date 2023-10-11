@@ -1564,6 +1564,50 @@ responsive
   }
 }
 
+.main{
+  margin-top: 150px;
+}
+.rounded-table{
+  border: 0.5px solid rgb(143, 141, 141);
+  border-radius: 10px;
+}
+
+.rounded-image{
+  border-radius: 10px;
+  width: 150px;
+  height: 100px;
+}
+
+.table thead th{
+  background-color: #fb5849;
+  border: 0.5px solid #fb5849;;
+}
+td.status{
+  white-space: nowrap;
+}
+
+.table tbody td.status span {
+  position: relative;
+  border-radius: 30px;
+  padding: 4px 10px 4px 25px; }
+  .table tbody td.status span:after {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    content: '';
+    border-radius: 50%; }
+.table tbody td.status .served {
+  background: #cff6dd;
+  color: #1fa750; }
+  .table tbody td.status .served:after {
+    background: #23bd5a; }
+.table tbody td.status .preparing {
+  background: #fdf5dd;
+  color: #cfa00c; }
+  .table tbody td.status .preparing:after {
+    background: #f2be1d; }
 
 
 
