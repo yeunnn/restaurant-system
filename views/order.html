@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../public/images/ossu-logo.png">
 
-    <title>OSSU | Order</title>
+    <title>OSSU | Your Order</title>
 
     <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css">
@@ -25,6 +25,47 @@
     <link rel="stylesheet" href="../public/css/lightbox.css">
 
     <link rel="stylesheet" href="../public/css/order-style.css">
+    
+    <style>
+        .receipt {
+            max-width: 80%;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 2em;
+            background-color: #f9f9f9;
+        }
+
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .receipt-items {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .receipt-items th, .receipt-items td {
+            border: 1px solid #ccc;
+            padding: 1em;
+            text-align: left;
+            font-size: 1em;
+        }
+
+        .receipt-items th {
+            background-color: #f2f2f2;
+        }
+
+        .receipt-items td:last-child {
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .receipt {
+                padding: 1em;
+            }
+        }
+    </style>
 
     </head>
 
@@ -43,11 +84,12 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="../views/index.html" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="#about">Cart</a></li>
-                            <li class="scroll-to-section"><a href="#menu">Menu</a></li>
-                            <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li> 
-                            <li class="scroll-to-section"><a href="#reservation">AJ</a></li> 
+                            <li class="scroll-to-section"><a href="index.html" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="">View Menu</a></li>
+                            <li class="scroll-to-section"><a href="">View Orders</a></li>
+                            <li class="scroll-to-section"><a href="login.html" id="login-color">Login</a></li>
+                            <li class="scroll-to-section"><a href="signup.html" id="login-color">Sign-up</a></li>
+                            <li class="scroll-to-section"><a href="" id="login-color">Logout</a></li>
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -60,52 +102,123 @@
     </header>
     <!-- ***** Header Area End ***** -->
     
-    <!-- YOUR ORDER -->
-    <section class="section" id="about">
+    <!-- ***** Order Area Starts ***** -->
+    <section class="section" id="chefs">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="receipt">
+                    <div class="receipt-header">
+                        <h1>Receipt</h1>
+                        <p>Date: October 12, 2023</p>
+                    </div>
+                    <table class="receipt-items">
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr>
+                            <td>R7 Gyudon 牛丼飯</td>
+                            <td>P328</td>
+                        </tr>
+                        <tr>
+                            <td>K1 Pork katsu Curry 豬排咖哩</td>
+                            <td>P318</td>
+                        </tr>
+                        <tr>
+                            <td>P4 Taiwan Sausage (3pcs)</td>
+                            <td>P368</td>
+                        </tr>
+                        <tr>
+                            <td>F11 Fried ban Fish 炸魚條</td>
+                            <td>P208</td>
+                        </tr>
+                        <tr>
+                            <td>F15 Sea urchin Ball 海膽包</td>
+                            <td>P208</td>
+                        </tr>
+                        <tr>
+                            <td>F4 Chicken wings 6pcs 雞翅</td>
+                            <td>P298</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;"><strong>Total: P1,728.00</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- ***** Add Content Here ***** -->
+            </div>
+        </div>
+    </section>
+    <!-- ***** Order Area Ends ***** -->
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="index.html"><img src="../public/images/ossu-logo-new.png" alt="" width="170px" height="55px"></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12">
                     <div class="left-text-content">
-                        <div class="section-heading">
-                            <h2>YOUR ORDER</h2>
-                        </div>
+                        <p>© Copyright OSSU.
+                        
+                        <br>All Rights Reserved</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
-    </section>                
-    <!-- YOUR ORDER -->
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../public/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../public/js/popper.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="../public/js/owl-carousel.js"></script>
+    <script src="../public/js/accordions.js"></script>
+    <script src="../public/js/datepicker.js"></script>
+    <script src="../public/js/scrollreveal.min.js"></script>
+    <script src="../public/js/waypoints.min.js"></script>
+    <script src="../public/js/jquery.counterup.min.js"></script>
+    <script src="../public/js/imgfix.min.js"></script> 
+    <script src="../public/js/slick.js"></script> 
+    <script src="../public/js/lightbox.js"></script> 
+    <script src="../public/js/isotope.js"></script> 
     
-    <!-- ORDER LIST -->
-    <div class="middle-div">
-            
+    <!-- Global Init -->
+    <script src="../public/js/custom.js"></script>
+    <script>
 
-            <!-- LEFT DIV-->
-                <div class="order-left-align">
-                    <h5>Order 1</h5>
-                    <h5>Order 2</h5>
-                    <h5>Order 3</h5>
-                    <h5>Order 4</h5>
-                    <br>
-                    <h5 style="font-weight: bold">TOTAL</h5>
-                </div>
-            <!-- LEFT DIV END-->
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
 
-                <!--SPACE BETWEEN DIV-->
-                    <div class="space"></div>
-                <!--SPACE BETWEEN END-->    
+    </script>
 
-            <!-- RIGHT DIV -->
-                <div class="order-right-align">
-                    <h5>PHP 150</h5>
-                    <h5>PHP 250</h5>
-                    <h5>PHP 325</h5>
-                    <h5>PHP 120</h5>
-                    <br>
-                    <h5 style="font-weight: bold">PHP 825</h5>
-                </div>
-            <!-- RIGHT DIV END-->
-    
-        </div>
     </body>
 </html>

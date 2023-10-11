@@ -1051,7 +1051,8 @@ chefs
 */
 
 #chefs {
-  padding-top: 120px;
+  background-color: #F1EFEF;
+  padding: 120px;
 }
 
 #chefs .section-heading {
