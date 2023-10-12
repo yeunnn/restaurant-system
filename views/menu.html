@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  	<head>
+	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../public/images/ossu-logo.png">
+
+    <title>OSSU | Menu</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../public/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../public/css/styles.css">
+
+    <link rel="stylesheet" href="../public/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="../public/css/lightbox.css">
+
+    <link rel="stylesheet" href="../public/css/order-style.css">
+    
+    <style>
+        h1 {
+            color: #333;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            justify-items: center;
+        }
+
+        .menu-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 230px;
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .categories {
+            padding: 5px;
+        }
+
+        .cart-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px;
+            width: 600px;
+            margin-left: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .cart-item img {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        button {
+            margin: 5px;
+        }
+
+        .menu-item input {
+            width: 30px;
+            text-align: center;
+        }
+
+        .cart-container h2 {
+            border-bottom: 1px solid #000; /* You can adjust the color and style of the line */
+            padding-bottom: 5px; /* Adjust the padding as needed */
+        }
+
+        input[type='number']{
+            width: 40px;
+        } 
+    </style>
+
+    </head>
+
+    <body>
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                            <img src="../public/images/ossu-logo.png" width="60px" height="60px">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="index.html">Home</a></li>
+                            <li class="scroll-to-section"><a href="menu.html" class="active">View Menu</a></li>
+                            <li class="scroll-to-section"><a href="order-status.html">View Orders</a></li>
+                            <li class="scroll-to-section"><a href="" id="login-color">Logout</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+    <div id="top">
+        <div class="container-fluid">
+        </div>
+    </div>
+
+    <!-- ***** Menu Starts Here ***** -->
+    <section class="section" id="header-fix-section">
+        <div class="container">
+            <div class="section-heading">
+                <h6>OSSU Restaurant</h6>
+                <h2>Food Menu</h2>
+            </div>
+            <div class="categories">
+                <button onclick="filterCategory('all')">All</button>
+                <button onclick="filterCategory('meals')">Meals</button>
+                <button onclick="filterCategory('snacks')">Snacks</button>
+                <button onclick="filterCategory('drinks')">Drinks</button>
+                <button onclick="filterCategory('desserts')">Desserts</button>
+            </div>
+            <div id="menu" class="menu-container"></div>
+            <br>
+            <div id="pagination"></div>
+            <div id="cart" class="cart-container">
+                <h2>Cart</h2>
+                <div id="cart-items"></div>
+                <p>Total: <span id="total-price">$0.00</span></p>
+                <button onclick="confirmOrder()">Order</button>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- ***** Menu Ends Here ***** -->
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="index.html"><img src="../public/images/ossu-logo-new.png" alt="" width="170px" height="55px"></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12">
+                    <div class="left-text-content">
+                        <p>© Copyright OSSU.
+                        
+                        <br>All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../public/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../public/js/popper.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="../public/js/owl-carousel.js"></script>
+    <script src="../public/js/accordions.js"></script>
+    <script src="../public/js/datepicker.js"></script>
+    <script src="../public/js/scrollreveal.min.js"></script>
+    <script src="../public/js/waypoints.min.js"></script>
+    <script src="../public/js/jquery.counterup.min.js"></script>
+    <script src="../public/js/imgfix.min.js"></script> 
+    <script src="../public/js/slick.js"></script> 
+    <script src="../public/js/lightbox.js"></script> 
+    <script src="../public/js/isotope.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="../public/js/custom.js"></script>
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+
+    </script>
+
+    <script>
+        const menuData = [
+            { name: "Item 1", category: "meals", image: "../public/images/ossu-food1.PNG", price: "$10.99" },
+            { name: "Item 2", category: "snacks", image: "../public/images/ossu-food1.PNG", price: "$5.99" },
+            { name: "Seafood fried 蚵仔、蝦仁煎", category: "drinks", image: "../public/images/ossu-food1.PNG", price: "$2.99" },
+            { name: "Item 4", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 5", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 6", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 7", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 8", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 9", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 10", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 11", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 12", category: "desserts", image: "../public/images/ossu-food1.PNG", price: "$7.99" },
+            { name: "Item 13", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 14", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 15", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 16", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 17", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 18", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 19", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 20", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 21", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            { name: "Item 22", category: "desserts", image: "item4.jpg", price: "$7.99" },
+            // Add more menu items here
+        ];
+
+        const itemsPerPage = 9;
+        let currentPage = 1;
+        let currentCategory = 'all';
+
+        let cart = [];
+
+        function renderMenu(pageNumber) {
+            const menuContainer = document.getElementById('menu');
+            menuContainer.innerHTML = '';
+
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = pageNumber * itemsPerPage;
+
+            const filteredData = getFilteredData();
+
+            for (let i = startIndex; i < endIndex && i < filteredData.length; i++) {
+                const item = filteredData[i];
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+
+                const image = document.createElement('img');
+                image.src = item.image;
+                menuItem.appendChild(image);
+
+                const itemName = document.createElement('h2');
+                itemName.textContent = item.name;
+                menuItem.appendChild(itemName);
+
+                const itemPrice = document.createElement('p');
+                itemPrice.textContent = `Price: ${item.price}`;
+                menuItem.appendChild(itemPrice);
+
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.min = '0';
+                quantityInput.value = '0';
+                quantityInput.classList.add('quantity-input');
+                menuItem.appendChild(quantityInput);
+
+                const addToCartButton = document.createElement('button');
+                addToCartButton.textContent = 'Add to Cart';
+                addToCartButton.addEventListener('click', () => {
+                    const quantity = parseInt(quantityInput.value, 10);
+                    addToCart(item, quantity);
+                });
+                menuItem.appendChild(addToCartButton);
+
+                menuContainer.appendChild(menuItem);
+            }
+        }
+
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination');
+            paginationContainer.innerHTML = '';
+
+            const totalPages = Math.ceil(getFilteredData().length / itemsPerPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    renderMenu(currentPage);
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            renderMenu(currentPage);
+            renderPagination();
+        }
+
+        function getFilteredData() {
+            return menuData.filter(item => currentCategory === 'all' || item.category === currentCategory);
+        }
+
+        // Modify the addToCart function to include a remove button
+        function addToCart(item, quantity) {
+            if (quantity > 0) {
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({ ...item, quantity });
+                }
+
+                updateCart();
+            }
+        }
+
+        // Modify the updateCart function to include a remove button
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.classList.add('cart-item');
+
+                const image = document.createElement('img');
+                image.src = item.image;
+                cartItemElement.appendChild(image);
+
+                const itemName = document.createElement('span');
+                itemName.textContent = item.name;
+                cartItemElement.appendChild(itemName);
+
+                const itemQuantity = document.createElement('span');
+                itemQuantity.textContent = `x ${item.quantity}`;
+                cartItemElement.appendChild(itemQuantity);
+
+                const itemPrice = document.createElement('span');
+                const price = parseFloat(item.price.substring(1));
+                itemPrice.textContent = `= $${(price * item.quantity).toFixed(2)}`;
+                cartItemElement.appendChild(itemPrice);
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    removeFromCart(item.name);
+                });
+                cartItemElement.appendChild(removeButton);
+
+                cartItemsContainer.appendChild(cartItemElement);
+
+                totalPrice += price * item.quantity;
+            });
+
+            const totalPriceElement = document.getElementById('total-price');
+            totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+        }
+
+        function confirmOrder() {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Add items to your cart before placing an order.');
+                return;
+            }
+
+            const confirmation = confirm('Are you sure you want to place this order?');
+
+            if (confirmation) {
+                alert('Order placed successfully! Thank you for your purchase.');
+                cart = [];
+                updateCart();
+                window.location.href = 'order.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu(currentPage);
+            renderPagination();
+        });
+
+        // Add a new function to remove an item from the cart
+        function removeFromCart(itemName) {
+            cart = cart.filter(item => item.name !== itemName);
+            updateCart();
+        }
+    </script>
+
+    </body>
+</html>
