@@ -99,3 +99,11 @@
   
 }
 
+.order-id{
+  align-items: center;
+  color: black;
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+}
+
