@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/images/ossu-logo.png">
+
+    <title>OSSU | Order Status</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+ 
+    <link rel="stylesheet" href="/css/styles.css">
+ 
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+ 
+    <link rel="stylesheet" href="/css/lightbox.css">
+ 
+    <link rel="stylesheet" href="/css/order-style.css">
+
+    </head>
+
+    <body>
+
+    <!-- ***** Header Area Start ***** -->
+    {{> nav}}
+    <!-- ***** Header Area End ***** -->
+    
+    <div id="top">
+        <div class="container-fluid">
+        </div>
+    </div>
+
+    <section class="section" id="header-fix-section">
+        <div class="container">
+            <div class="section-heading">
+                <h6>Order Status</h6>
+                <h2>Table #7</h2>
+            </div>
+            <div class="table-responsive rounded-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col"></th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><img src="/images/ossu-food1.PNG" alt="Takoyaki" class="rounded-image"></td>
+                            <td>Takoyaki</td>
+                            <td class="status"><span class="served">Served</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><img src="/images/ossu-food2.PNG" alt="Seafood Fried" class="rounded-image"></td>
+                            <td>Seafood Fried</td>
+                            <td class="status"><span class="preparing">Preparing</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><img src="/images/ossu-food3.PNG" alt="Fried Noodles" class="rounded-image"></td>
+                            <td>Fried Noodles</td>
+                            <td class="status"><span class="served">Served</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><img src="/images/ossu-food4.PNG" alt="Beef Ramen" class="rounded-image"></td>
+                            <td>Beef Ramen</td>
+                            <td class="status"><span class="served">Served</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><img src="/images/ossu-food5.PNG" alt="Dumpling" class="rounded-image"></td>
+                            <td>Dumpling</td>
+                            <td class="status"><span class="served">Served</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><img src="/images/ossu-food6.PNG" alt="Pork Katsu Karee" class="rounded-image"></td>
+                            <td>Pork Katsu Karee</td>
+                            <td class="status"><span class="served">Served</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="#top"><img src="/images/ossu-logo-new.png" alt="" width="170px" height="55px"></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12">
+                    <div class="left-text-content">
+                        <p>© Copyright OSSU.
+                        
+                        <br>All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="/js/owl-carousel.js"></script>
+    <script src="/js/accordions.js"></script>
+    <script src="/js/datepicker.js"></script>
+    <script src="/js/scrollreveal.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/imgfix.min.js"></script> 
+    <script src="/js/slick.js"></script> 
+    <script src="/js/lightbox.js"></script> 
+    <script src="/js/isotope.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="/js/custom.js"></script>
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+
+    </script>
+
+    </body>
+</html>

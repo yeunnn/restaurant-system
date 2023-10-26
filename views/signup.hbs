@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head>
+	<meta charset="utf-8">
+
+	<title>OSSU | Signup</title>
+
+	<link rel="stylesheet" href="/css/login_signup.css">
+	<link rel="icon" type="image/x-icon" href="/images/ossu-logo.png">
+
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+	</head>
+
+	<body>
+		<div class="bg-img">
+			<div class="content">
+				<header>Signup Form</header>
+				<form action="/signup" method="post">
+					<div class="field">
+						<span class="fa fa-user"></span>
+						<input type="text" required placeholder="Username" name="username" required>
+					</div>
+					<div class="field space">
+						<span class="fa fa-lock"></span>
+						<input type="password" class="pas2s-key" required placeholder="Password"  name="password" required>
+						<span class="show">SHOW</span>
+					</div>
+					<div class="field space">
+						<span class="fa fa-lock"></span>
+						<input type="password" class="pas2s-key" required placeholder="Confirm Password" name="confirmpassword" required>
+					</div>
+					<br>
+
+					<div class="field">
+						<input type="submit" value="Signup" name="submit">
+					</div>
+				</form>
+				<div class="signup">Already have an account?
+					<a href="login">Login Now</a>
+				</div>
+				<div class="signup">Staff Member
+					<a href="staff-login">Staff</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

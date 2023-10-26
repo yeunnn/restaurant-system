@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  	<head>
+	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/images/ossu-logo.png">
+
+    <title>OSSU | Menu</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+
+    <link rel="stylesheet" href="/css/lightbox.css">
+
+    <link rel="stylesheet" href="/css/order-style.css">
+    
+    <style>
+        h1 {
+            color: #333;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            justify-items: center;
+        }
+
+        .menu-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 230px;
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .categories {
+            padding: 5px;
+        }
+
+        .cart-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px;
+            width: 600px;
+            margin-left: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .cart-item img {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        button {
+            margin: 5px;
+        }
+
+        .menu-item input {
+            width: 30px;
+            text-align: center;
+        }
+
+        .cart-container h2 {
+            border-bottom: 1px solid #000; /* You can adjust the color and style of the line */
+            padding-bottom: 5px; /* Adjust the padding as needed */
+        }
+
+        input[type='number']{
+            width: 40px;
+        }
+
+        .table-no-style {
+            float: right;
+        }
+    </style>
+
+    </head>
+
+    <body>
+    
+    <!-- ***** Header Area Start ***** -->
+    {{> nav}}
+    <!-- ***** Header Area End ***** -->
+    <div id="top">
+        <div class="container-fluid">
+        </div>
+    </div>
+
+    <!-- ***** Menu Starts Here ***** -->
+    <section class="section" id="header-fix-section">
+        <div class="container">
+            <div class="section-heading">
+                <h6>OSSU Restaurant</h6>
+                <h2>Food Menu</h2>
+            </div>
+            <div class="categories">
+                <button onclick="filterCategory('all')">All</button>
+                <button onclick="filterCategory('meals')">Meals</button>
+                <button onclick="filterCategory('snacks')">Snacks</button>
+                <button onclick="filterCategory('drinks')">Drinks</button>
+                <button onclick="filterCategory('desserts')">Desserts</button>
+            </div>
+            <div id="menu" class="menu-container"></div>
+            <br>
+            <div id="pagination"></div>
+            <div id="cart" class="cart-container">
+                <h2>Cart</h2>
+                <div id="cart-items"></div>
+                <p>Total: <span id="total-price">$0.00</span></p>
+                <button onclick="confirmOrder()">Order</button>
+                <div class="table-no-style">
+                    <label for="table-number">Table No.</label>
+                    <input type="number" id="table-number" min="1" required>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- ***** Menu Ends Here ***** -->
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="#top"><img src="/images/ossu-logo-new.png" alt="" width="170px" height="55px"></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12">
+                    <div class="left-text-content">
+                        <p>© Copyright OSSU.
+                        
+                        <br>All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="/js/owl-carousel.js"></script>
+    <script src="/js/accordions.js"></script>
+    <script src="/js/datepicker.js"></script>
+    <script src="/js/scrollreveal.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/imgfix.min.js"></script> 
+    <script src="/js/slick.js"></script> 
+    <script src="/js/lightbox.js"></script> 
+    <script src="/js/isotope.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="/js/custom.js"></script>
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+
+    </script>
+
+    <script>
+        const menuData = [
+            { name: "Gyoza 煎餃", category: "snacks", image: "/images/ossu-p1.PNG", price: "P268" },
+            { name: "Suigyouza 水餃", category: "snacks", image: "/images/ossu-p2.PNG", price: "P228" },
+            { name: "Seafood fried 蚵仔、蝦仁煎", category: "snacks", image: "/images/ossu-p3.PNG", price: "P288" },
+            { name: "Taiwan Sausage (3pcs)", category: "snacks", image: "/images/ossu-p4.PNG", price: "P368" },
+            { name: "Hong-Ma 控肉", category: "snacks", image: "/images/ossu-p5.PNG", price: "P388" },
+            { name: "TanTan Noodle", category: "meals", image: "/images/ossu-r1.PNG", price: "P308" },
+            { name: "Taiwan Sha-te fried Noodles", category: "meals", image: "/images/ossu-r2.PNG", price: "P419" },
+            { name: "Dry Noodle 特製乾麵", category: "meals", image: "/images/ossu-r3.PNG", price: "P258" },
+            { name: "Pork katsu Curry 豬排咖哩", category: "meals", image: "/images/ossu-k1.PNG", price: "P318" },
+            { name: "Chicken katsu Curry 雞排咖哩", category: "meals", image: "/images/ossu-k2.PNG", price: "P308" },
+            { name: "Ebi Tempura Curry 炸蝦咖哩", category: "meals", image: "/images/ossu-k3.PNG", price: "P318" },
+            { name: "Tori Karaage Curry 鹽酥雞咖哩", category: "meals", image: "/images/ossu-k4.PNG", price: "P308" },
+            { name: "OSSU Ice Tea", category: "drinks", image: "/images/ossu-drink1.PNG", price: "P110" },
+            { name: "Strawberry Jasmine Tea", category: "drinks", image: "/images/ossu-drink2.jpg", price: "P110" },
+            { name: "Lychee balck Tea", category: "drinks", image: "/images/ossu-drink3.jpg", price: "P110" },
+            { name: "Mango Shake", category: "drinks", image: "/images/ossu-drink4.jpg", price: "$7.99" },
+            { name: "Taiwan Milk Tea", category: "drinks", image: "/images/ossu-drink5.jpg", price: "$7.99" },
+            { name: "Sesamei ball 芝麻球", category: "desserts", image: "/images/ossu-de1.PNG", price: "P188" },
+            { name: "Herbal Jelly 龜苓膏", category: "desserts", image: "/images/ossu-de2.PNG", price: "P140" },
+            { name: "Fried buns 炸饅頭", category: "desserts", image: "/images/ossu-de3.PNG", price: "P218" },
+            { name: "Radish cake 港式蘿蔔糕", category: "desserts", image: "/images/ossu-de4.PNG", price: "P188" },
+            { name: "Spring roll 春捲(素食)", category: "desserts", image: "/images/ossu-de5.PNG", price: "P168" },
+            // Add more menu items here
+        ];
+
+        const itemsPerPage = 9;
+        let currentPage = 1;
+        let currentCategory = 'all';
+
+        let cart = [];
+
+        function renderMenu(pageNumber) {
+            const menuContainer = document.getElementById('menu');
+            menuContainer.innerHTML = '';
+
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = pageNumber * itemsPerPage;
+
+            const filteredData = getFilteredData();
+
+            for (let i = startIndex; i < endIndex && i < filteredData.length; i++) {
+                const item = filteredData[i];
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+
+                const image = document.createElement('img');
+                image.src = item.image;
+                menuItem.appendChild(image);
+
+                const itemName = document.createElement('h2');
+                itemName.textContent = item.name;
+                menuItem.appendChild(itemName);
+
+                const itemPrice = document.createElement('p');
+                itemPrice.textContent = `Price: ${item.price}`;
+                menuItem.appendChild(itemPrice);
+
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.min = '0';
+                quantityInput.value = '0';
+                quantityInput.classList.add('quantity-input');
+                menuItem.appendChild(quantityInput);
+
+                const addToCartButton = document.createElement('button');
+                addToCartButton.textContent = 'Add to Cart';
+                addToCartButton.addEventListener('click', () => {
+                    const quantity = parseInt(quantityInput.value, 10);
+                    addToCart(item, quantity);
+                });
+                menuItem.appendChild(addToCartButton);
+
+                menuContainer.appendChild(menuItem);
+            }
+        }
+
+        function renderPagination() {
+            const paginationContainer = document.getElementById('pagination');
+            paginationContainer.innerHTML = '';
+
+            const totalPages = Math.ceil(getFilteredData().length / itemsPerPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => {
+                    currentPage = i;
+                    renderMenu(currentPage);
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            renderMenu(currentPage);
+            renderPagination();
+        }
+
+        function getFilteredData() {
+            return menuData.filter(item => currentCategory === 'all' || item.category === currentCategory);
+        }
+
+        // Modify the addToCart function to include a remove button
+        function addToCart(item, quantity) {
+            if (quantity > 0) {
+                const existingItem = cart.find(cartItem => cartItem.name === item.name);
+
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({ ...item, quantity });
+                }
+
+                updateCart();
+            }
+        }
+
+        // Modify the updateCart function to include a remove button
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.classList.add('cart-item');
+
+                const image = document.createElement('img');
+                image.src = item.image;
+                cartItemElement.appendChild(image);
+
+                const itemName = document.createElement('span');
+                itemName.textContent = item.name;
+                cartItemElement.appendChild(itemName);
+
+                const itemQuantity = document.createElement('span');
+                itemQuantity.textContent = `x ${item.quantity}`;
+                cartItemElement.appendChild(itemQuantity);
+
+                const itemPrice = document.createElement('span');
+                const price = parseFloat(item.price.substring(1));
+                itemPrice.textContent = `= P${(price * item.quantity).toFixed(2)}`;
+                cartItemElement.appendChild(itemPrice);
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    removeFromCart(item.name);
+                });
+                cartItemElement.appendChild(removeButton);
+
+                cartItemsContainer.appendChild(cartItemElement);
+
+                totalPrice += price * item.quantity;
+            });
+
+            const totalPriceElement = document.getElementById('total-price');
+            totalPriceElement.textContent = `P${totalPrice.toFixed(2)}`;
+        }
+
+        function confirmOrder() {
+            const tableNumber = document.getElementById('table-number').value; // Get the table number value
+
+            if (tableNumber === "") {
+                alert('Please enter a table number.'); // Notify if the table number is not provided
+                return;
+            }
+
+            if (cart.length === 0) {
+                alert('Your cart is empty. Add items to your cart before placing an order.');
+                return;
+            }
+
+            const confirmation = confirm('Are you sure you want to place this order?');
+
+            if (confirmation) {
+                alert('Order placed successfully! Thank you for your purchase.');
+                cart = [];
+                updateCart();
+                window.location.href = '/order';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu(currentPage);
+            renderPagination();
+        });
+
+        // Add a new function to remove an item from the cart
+        function removeFromCart(itemName) {
+            cart = cart.filter(item => item.name !== itemName);
+            updateCart();
+        }
+    </script>
+
+    </body>
+</html>
