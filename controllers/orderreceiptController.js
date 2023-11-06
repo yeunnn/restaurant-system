@@ -8,14 +8,13 @@ const User = require('../models/UserModel.js');
     defines an object which contains functions executed as callback
     when a client requests for `profile` paths in the server
 */
-const orderController = {
+const orderreceiptController = {
 
-    getOrder: async function (req, res) {
+    getOrderReceipt: async function (req, res) {
         var details = {
-            position: 'customer',
-            active:'order'
+            active:'order-receipt'
         };
-        res.render('order',details);
+        res.render('order-receipt',details);
     }
 }
 
@@ -23,4 +22,4 @@ const orderController = {
     exports the object `profileController` (defined above)
     when another script exports from this file
 */
-module.exports = orderController;
+module.exports = orderreceiptController;

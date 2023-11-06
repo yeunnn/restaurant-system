@@ -12,7 +12,6 @@ const staffpageController = {
 
     getStaffPage: async function (req, res) {
         var details = {
-            position: 'customer',
             active:'staff-page'
         };
         res.render('staff-page',details);

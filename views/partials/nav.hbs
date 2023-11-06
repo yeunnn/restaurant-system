@@ -11,62 +11,43 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <!-- Customer View -->
-                            {{#ifCond position 'customer'}}
-
-                                {{#ifCond active 'index'}}
-                                    <li class="scroll-to-section"><a href="index">Home</a></li>
-                                    <li class="scroll-to-section"><a href="#about">About</a></li>
-                                    <li class="scroll-to-section"><a href="#menu">Offers</a></li>
-                                    <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li>
-                                    <li class="scroll-to-section"><a href="menu">View Menu</a></li>
-                                    <li class="scroll-to-section"><a href="order-status">View Orders</a></li>
-                                    <li class="scroll-to-section"><a href="/" id="login-color">Logout</a></li>
-                                {{/ifCond}}
-                                {{#ifCond active 'menu'}}
-                                    <li class="scroll-to-section"><a href="index">Home</a></li>
-                                    <li class="scroll-to-section"><a href="menu" class="active">View Menu</a></li>
-                                    <li class="scroll-to-section"><a href="order-status">View Orders</a></li>
-                                    <li class="scroll-to-section"><a href="/" id="login-color">Logout</a></li>
-                                {{/ifCond}}
-                                {{#ifCond active 'order'}}
-                                    <li class="scroll-to-section"><a href="index">Home</a></li>
-                                    <li class="scroll-to-section"><a href="menu">View Menu</a></li>
-                                    <li class="scroll-to-section"><a href="order-status">View Orders</a></li>
-                                    <li class="scroll-to-section"><a href="/" id="login-color">Logout</a></li>
-                                {{/ifCond}}
-                                {{#ifCond active 'order-status'}}
-                                    <li class="scroll-to-section"><a href="index">Home</a></li>
-                                    <li class="scroll-to-section"><a href="menu">View Menu</a></li>
-                                    <li class="scroll-to-section"><a href="order-status" class="active">View Orders</a></li>
-                                    <li class="scroll-to-section"><a href="/" id="login-color">Logout</a></li>
-                                {{/ifCond}}
-                                
+                            <!-- Homepage -->
+                            {{#ifCond active 'index'}}
+                                <li class="scroll-to-section"><a href="/">Home</a></li>
+                                <li class="scroll-to-section"><a href="#about">About</a></li>
+                                <li class="scroll-to-section"><a href="#menu">Offers</a></li>
+                                <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li>
+                                <li class="scroll-to-section"><a href="menu">Menu</a></li>
+                                <li class="scroll-to-section"><a href="order-status">Orders Status</a></li>
+                                <li class="scroll-to-section"><a href="staff-login" id="login-color">Staff</a></li>
                             {{/ifCond}}
 
-                            <!-- Staff View -->
-                            {{#ifCond position 'staff'}}
-
-                                {{#ifCond active 'staff-page'}}
-                                    <li class="scroll-to-section"><a href="staff-page" class="active">Manage Orders</a></li>
-                                    <li class="scroll-to-section"><a href="/" id="login-color">Logout</a></li>
-                                {{/ifCond}}
-
+                            <!-- Menu -->
+                            {{#ifCond active 'menu'}}
+                                <li class="scroll-to-section"><a href="index">Home</a></li>
+                                <li class="scroll-to-section"><a href="menu" class="active">Menu</a></li>
+                                <li class="scroll-to-section"><a href="order-status">Orders</a></li>
                             {{/ifCond}}
 
-                            <!-- Guest View -->
-                            {{#ifCondN position 'customer'}}
+                            <!-- Order Status -->
+                            {{#ifCond active 'order-status'}}
+                                <li class="scroll-to-section"><a href="index">Home</a></li>
+                                <li class="scroll-to-section"><a href="menu">Menu</a></li>
+                                <li class="scroll-to-section"><a href="order-status" class="active">Orders</a></li>
+                            {{/ifCond}}
 
-                                {{#ifCond active 'index'}}
-                                    <li class="scroll-to-section"><a href="/">Home</a></li>
-                                    <li class="scroll-to-section"><a href="#about">About</a></li>
-                                    <li class="scroll-to-section"><a href="#menu">Offers</a></li>
-                                    <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li>
-                                    <li class="scroll-to-section"><a href="/login" id="login-color">Login</a></li>
-                                    <li class="scroll-to-section"><a href="/signup" id="login-color">Sign-up</a></li>
-                                {{/ifCond}}
+                            <!-- Order Receipt -->
+                            {{#ifCond active 'order-receipt'}}
+                                <li class="scroll-to-section"><a href="index">Home</a></li>
+                                <li class="scroll-to-section"><a href="menu">Menu</a></li>
+                                <li class="scroll-to-section"><a href="order-status">Orders</a></li>
+                            {{/ifCond}}
 
-                            {{/ifCondN}}
+                            <!-- Staff Page -->
+                            {{#ifCond active 'staff-page'}}
+                                <li class="scroll-to-section"><a href="#top">Manage Orders</a></li>
+                                <li class="scroll-to-section"><a href="/">Logout</a></li>
+                            {{/ifCond}}
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>

@@ -13,7 +13,6 @@ const menuController = {
 
     getMenu: async function (req, res) {
         var details = {
-            position: 'customer',
             active:'menu'
         };
         res.render('menu',details);

@@ -8,8 +8,8 @@ db.connect();
 add();
 async function add(){
     var UserSchema = {
-        username: 'user123',
-        password: 'userpass123',
+        username: 'sample_user1',
+        password: 'user1',
         position: 'customer',
         myOrder: [
         {
@@ -40,7 +40,7 @@ async function add(){
             id: 1
         }
         ]
-        }
+    }
 
     var response = await db.insertOne(User, UserSchema);
     if(response) {

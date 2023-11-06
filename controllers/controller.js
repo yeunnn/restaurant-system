@@ -15,7 +15,6 @@ const controller = {
 
     userIndex: async function (req, res) {
         var details = {
-            position: 'customer',
             active:'index'
         };
         

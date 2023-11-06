@@ -12,7 +12,6 @@ const orderstatusController = {
 
     getOrderStatus: async function (req, res) {
         var details = {
-            position: 'customer',
             active:'order-status'
         };
         res.render('order-status',details);
