@@ -242,6 +242,7 @@
         let currentCategory = 'all';
 
         let cart = [];
+        updateCart();
 
         function renderMenu(pageNumber) {
             const menuContainer = document.getElementById('menu');
@@ -432,8 +433,6 @@
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
                 const orderData = createOrderData();
-                cart = [];
-                updateCart();
 
                 try {
                     const response = await fetch('/submitOrder', {
