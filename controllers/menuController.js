@@ -14,7 +14,7 @@ const menuController = {
   submitOrder: async function (req, res) {
     const orderItems = req.body.orderItems;
     const tableNo = req.body.tableNo;
-    const totalPrice = req.body.totalPrice
+    const totalPrice = req.body.totalPrice;
 
     try {
       const order = new Order({
