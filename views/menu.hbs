@@ -454,6 +454,7 @@
         // Function to submit the order
         async function submitOrder() {
             const orderData = createOrderData();
+            console.log(orderData);
 
             try {
             const response = await fetch('/submitOrder', {
