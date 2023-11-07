@@ -125,17 +125,18 @@
             <div id="menu" class="menu-container"></div>
             <br>
             <div id="pagination"></div>
-            <div id="cart" class="cart-container">
-                <h2>Cart</h2>
-                <div id="cart-items"></div>
-                <p>Total: <span id="total-price">$0.00</span></p>
-                <button id="orderBtn" onclick="confirmOrder()">Order</button>
-                <div class="table-no-style">
-                    <label for="table-number">Table No.</label>
-                    <input type="number" id="table-number" min="1" required>
+            <form action="/submit-order" method="post">
+                <div id="cart" class="cart-container">
+                    <h2>Cart</h2>
+                    <div id="cart-items"></div>
+                    <p>Total: <span>P</span><span id="total-price">0.00</span></p>
+                    <button type ="submit" id="orderBtn" onclick="submitOrder()">Order</button>
+                    <div class="table-no-style">
+                        <label for="table-number">Table No.</label>
+                        <input type="number" id="table-number" min="1" required>
+                    </div>
                 </div>
-            </div>
-
+            </form>
         </div>
     </section>
     
@@ -374,10 +375,46 @@
             });
 
             const totalPriceElement = document.getElementById('total-price');
-            totalPriceElement.textContent = `P${totalPrice.toFixed(2)}`;
+            totalPriceElement.textContent = `${totalPrice.toFixed(2)}`;
         }
 
-        function confirmOrder() {
+        // Functions to retrieve order items and table number from the cart
+        function getOrderItems() {
+            const cartItems = document.querySelectorAll('.cart-item');
+            const orderItems = [];
+
+            cartItems.forEach((item) => {
+                const food = item.querySelector('.food-name').textContent;
+                const quantity = parseInt(item.querySelector('.quantity').textContent);
+                const price = parseFloat(item.querySelector('.price').textContent);
+
+                orderItems.push({ food, quantity, price});
+            });
+
+            console.log(orderItems)
+            return orderItems;
+        }
+
+        // Function to create the order data object
+        function createOrderData() {
+            const orderItems = getOrderItems();
+            const tableNo = Number(document.getElementById('table-number').value);
+            const totalPrice = Number(document.getElementById('total-price').textContent);
+
+            console.log("Table No: " + tableNo);
+            console.log("Total Price: " + totalPrice);
+
+            const orderData = {
+                orderItems,
+                tableNo,
+                totalPrice
+            };
+
+            return orderData;
+        }
+
+        // Function to submit the order
+        async function submitOrder() {
             const tableNumber = document.getElementById('table-number').value; // Get the table number value
 
             if (tableNumber === "") {
@@ -394,10 +431,36 @@
 
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
+                const orderData = createOrderData();
                 cart = [];
                 updateCart();
-                window.location.href = '/order-receipt';
+
+                try {
+                    const response = await fetch('/submitOrder', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(orderData)
+                    });
+
+                    if (response.ok) {
+                        alert('Order submitted successfully');
+                        // Clear the cart or perform any other necessary actions
+                    } else {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error);
+                    }
+                    } catch (err) {
+                        console.error(err.message);
+                        alert('An error occurred while submitting the order');
+                    }
+                    window.location.href = '/order-receipt';
             }
+        }
+
+        function confirmOrder() {
+            
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -409,73 +472,6 @@
         function removeFromCart(itemName) {
             cart = cart.filter(item => item.name !== itemName);
             updateCart();
-        }
-    </script>
-
-    <script>
-        // Attach event listener to the Order button
-        const orderButton = document.getElementById('orderBtn');
-        orderButton.addEventListener('click', submitOrder);
-
-        // Functions to retrieve order items and table number from the cart
-        function getOrderItems() {
-            const cartItems = document.querySelectorAll('.cart-item');
-            const orderItems = [];
-
-            cartItems.forEach((item) => {
-            const food = item.querySelector('.food-name').textContent;
-            const quantity = parseInt(item.querySelector('.quantity').textContent);
-            const price = parseFloat(item.querySelector('.price').textContent);
-
-            orderItems.push({ food, quantity, price});
-            });
-
-            return orderItems;
-        }
-
-        function getTableNumber() {
-            const tableNo = document.getElementById('tableNo').value;
-            return tableNo;
-        }
-
-        // Function to create the order data object
-        function createOrderData() {
-            const orderItems = getOrderItems();
-            const tableNo = getTableNumber();
-
-            const orderData = {
-                orderItems,
-                tableNo
-            };
-
-            return orderData;
-        }
-
-        // Function to submit the order
-        async function submitOrder() {
-            const orderData = createOrderData();
-            console.log(orderData);
-
-            try {
-            const response = await fetch('/submitOrder', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            });
-
-            if (response.ok) {
-                alert('Order submitted successfully');
-                // Clear the cart or perform any other necessary actions
-            } else {
-                const errorData = await response.json();
-                throw new Error(errorData.error);
-            }
-            } catch (err) {
-            console.error(err.message);
-            alert('An error occurred while submitting the order');
-            }
         }
     </script>
 

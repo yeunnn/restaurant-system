@@ -1,15 +1,8 @@
 // import module `database` from `../models/db.js`
 const db = require('../models/db.js');
 
-// import module `User` from `../models/UserModel.js`
-const User = require('../models/UserModel.js');
-// import module `Order` from `../models/OrderModel.js`
 const Order = require('../models/OrderModel.js');
 
-/*
-    defines an object which contains functions executed as callback
-    when a client requests for `profile` paths in the server
-*/
 const menuController = {
   getMenu: async function (req, res) {
     var details = {
@@ -17,42 +10,34 @@ const menuController = {
     };
     res.render('menu', details);
   },
-  
+
   submitOrder: async function (req, res) {
-    // Retrieve the order items from the request body
     const orderItems = req.body.orderItems;
-    // Retrieve the table number from the request body
     const tableNo = req.body.tableNo;
-    
+    const totalPrice = req.body.totalPrice
+
     try {
-      // Create a new order
       const order = new Order({
         items: orderItems,
-        tableNo: tableNo,
-        total: calculateTotal(orderItems) // Calculate the total price of the order
+        total: totalPrice,
+        tableNo: tableNo
       });
-      
-      // Save the order to the database
+
+      // Change the line below to await the `order.save()` method
       await order.save();
-      
-      // Clear the cart or perform any other necessary actions
-      
-      // Send a response indicating that the order was successfully submitted
-      res.status(200).json({ message: 'Order submitted successfully' });
+
+      // Code to clear cart or perform other necessary actions
+
+      // Send a success status of 201 (Created) instead of 200 (OK)
+      res.status(201).json({ message: 'Order submitted successfully' });
     } catch (err) {
-      // Handle any errors that occur during the order submission process
+      // Log the error for debugging purposes
+      console.error(err);
       res.status(500).json({ error: 'An error occurred while submitting the order' });
     }
   }
 };
 
-/*
-    exports the object `menuController` (defined above)
-    when another script exports from this file
-*/
-module.exports = menuController;
-
-// Helper function to calculate the total price of the order
 function calculateTotal(orderItems) {
   let total = 0;
   for (const item of orderItems) {
@@ -60,3 +45,5 @@ function calculateTotal(orderItems) {
   }
   return total;
 }
+
+module.exports = menuController;

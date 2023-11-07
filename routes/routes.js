@@ -21,7 +21,9 @@ const app = express();
 app.get('/', controller.getIndex);
 app.get('/index', controller.userIndex);
 
+//Menu Controller
 app.get('/menu', menuController.getMenu);
+app.post('/submit-order', menuController.submitOrder);
 
 app.get('/order-receipt', orderreceiptController.getOrderReceipt);
 app.get('/order-status', orderstatusController.getOrderStatus);
