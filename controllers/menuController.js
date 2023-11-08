@@ -12,27 +12,25 @@ const menuController = {
   },
 
   submitOrder: async function (req, res) {
-    const orderItems = req.body.orderItems;
-    const tableNo = req.body.tableNo;
-    const totalPrice = req.body.totalPrice;
-    console.log('orderItems = ' + orderItems + ', totalPrice = ' + totalPrice+ ', tableNo = ' + tableNo);
-    
-  
-    // Validate and handle missing values
-    if (!orderItems || !tableNo || !totalPrice) {
-      return res.status(400).json({ error: 'Missing Data: orderItems = ' + orderItems + ', totalPrice = ' + totalPrice+ ', tableNo = ' + tableNo});
-    }
-  
     try {
+      var orderItems = req.body.orderItems;
+      var tableNo = req.body.tableNo;
+      var totalPrice = req.body.totalPrice;
+  
+      console.log('orderItems = ' + orderItems + ', totalPrice = ' + totalPrice + ', tableNo = ' + tableNo);
+  
+      // Validate and handle missing values
+      if (!orderItems || !tableNo || !totalPrice) {
+        return res.status(400).json({ error: 'Missing Data: orderItems = ' + orderItems + ', totalPrice = ' + totalPrice + ', tableNo = ' + tableNo});
+      }
+  
+      // Process the order data
       const order = new Order({
         items: orderItems,
         total: totalPrice,
         tableNo: tableNo,
       });
   
-      //Log Info
-      console.log('orderItems = ' + orderItems + ', totalPrice = ' + totalPrice+ ', tableNo = ' + tableNo);
-
       // Save the order to the database
       await db.insertOne(Order, order);
   
@@ -45,13 +43,5 @@ const menuController = {
     }
   }
 };
-
-function calculateTotal(orderItems) {
-  let total = 0;
-  for (const item of orderItems) {
-    total += item.price * item.quantity;
-  }
-  return total;
-}
 
 module.exports = menuController;
