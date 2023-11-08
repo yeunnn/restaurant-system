@@ -1,5 +1,6 @@
 // import module `express`
 const express = require('express');
+const bodyParser = require('body-parser');
 
 // import module `controller` from `../controllers/controller.js`
 const controller = require('../controllers/controller.js');
@@ -12,6 +13,9 @@ const staffloginController = require('../controllers/staffloginController.js');
 const staffpageController = require('../controllers/staffpageController.js');
 
 const app = express();
+
+// Parse JSON bodies
+app.use(bodyParser.json());
 
 /*
     execute function getIndex()

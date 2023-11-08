@@ -433,6 +433,7 @@
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
                 const orderData = createOrderData();
+                const JSONbody = JSON.stringify(orderData);
 
                 try {
                     const response = await fetch('/submitOrder', {
@@ -440,7 +441,7 @@
                         headers: {
                         'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(orderData)
+                        body: JSONbody
                     });
 
                     if (response.ok) {

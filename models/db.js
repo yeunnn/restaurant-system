@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 // import module `User` from `../models/UserModel.js`
 const User = require('./UserModel.js');
+const Order = require('./OrderModel.js');
 
 // the name of the database
 const url = 'mongodb://127.0.0.1:27017/restaurant-system';

@@ -15,19 +15,26 @@ const menuController = {
     const orderItems = req.body.orderItems;
     const tableNo = req.body.tableNo;
     const totalPrice = req.body.totalPrice;
-
+    
+  
+    // Validate and handle missing values
+    if (!orderItems || !tableNo || !totalPrice) {
+      return res.status(400).json({ error: 'Missing Data: orderItems = ' + orderItems + ', totalPrice = ' + totalPrice+ ', tableNo = ' + tableNo});
+    }
+  
     try {
       const order = new Order({
         items: orderItems,
         total: totalPrice,
-        tableNo: tableNo
+        tableNo: tableNo,
       });
+  
+      //Log Info
+      console.log('orderItems = ' + orderItems + ', totalPrice = ' + totalPrice+ ', tableNo = ' + tableNo);
 
-      // Change the line below to await the `order.save()` method
-      await order.save();
-
-      // Code to clear cart or perform other necessary actions
-
+      // Save the order to the database
+      await db.insertOne(Order, order);
+  
       // Send a success status of 201 (Created) instead of 200 (OK)
       res.status(201).json({ message: 'Order submitted successfully' });
     } catch (err) {
