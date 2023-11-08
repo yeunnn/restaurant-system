@@ -125,17 +125,18 @@
             <div id="menu" class="menu-container"></div>
             <br>
             <div id="pagination"></div>
-            <div id="cart" class="cart-container">
-                <h2>Cart</h2>
-                <div id="cart-items"></div>
-                <p>Total: <span id="total-price">$0.00</span></p>
-                <button onclick="confirmOrder()">Order</button>
-                <div class="table-no-style">
-                    <label for="table-number">Table No.</label>
-                    <input type="number" id="table-number" min="1" required>
+            <form action="/submit-order" method="post">
+                <div id="cart" class="cart-container">
+                    <h2>Cart</h2>
+                    <div id="cart-items"></div>
+                    <p><span>Total: Php</span><input id="total-price" type="text" name="totalPrice" value="0.00" readonly></p>
+                    <button type ="submit" id="orderBtn" onclick="submitOrder()">Order</button>
+                    <div class="table-no-style">
+                        <label for="table-number">Table No.</label>
+                        <input type="number" id="table-number" min="1" name="tableNo" required>
+                    </div>
                 </div>
-            </div>
-
+            </form>
         </div>
     </section>
     
@@ -241,6 +242,7 @@
         let currentCategory = 'all';
 
         let cart = [];
+        updateCart();
 
         function renderMenu(pageNumber) {
             const menuContainer = document.getElementById('menu');
@@ -340,6 +342,7 @@
             cart.forEach(item => {
                 const cartItemElement = document.createElement('div');
                 cartItemElement.classList.add('cart-item');
+                cartItemElement.setAttribute("name","orderItems[]");
 
                 const image = document.createElement('img');
                 image.src = item.image;
@@ -347,15 +350,21 @@
 
                 const itemName = document.createElement('span');
                 itemName.textContent = item.name;
+                itemName.className = "food";
+                itemName.setAttribute("name","food");
                 cartItemElement.appendChild(itemName);
 
                 const itemQuantity = document.createElement('span');
                 itemQuantity.textContent = `x ${item.quantity}`;
+                itemQuantity.className = "quantity";
+                itemQuantity.setAttribute("name","quantity");
                 cartItemElement.appendChild(itemQuantity);
 
                 const itemPrice = document.createElement('span');
                 const price = parseFloat(item.price.substring(1));
                 itemPrice.textContent = `= P${(price * item.quantity).toFixed(2)}`;
+                itemPrice.className = "price";
+                itemPrice.setAttribute("name","price");
                 cartItemElement.appendChild(itemPrice);
 
                 const removeButton = document.createElement('button');
@@ -371,10 +380,27 @@
             });
 
             const totalPriceElement = document.getElementById('total-price');
-            totalPriceElement.textContent = `P${totalPrice.toFixed(2)}`;
+            totalPriceElement.setAttribute("value", `${totalPrice.toFixed(2)}`)
+            //totalPriceElement.textContent = `${totalPrice.toFixed(2)}`;
         }
 
-        function confirmOrder() {
+        // Functions to retrieve order items and table number from the cart
+        function getOrderItems() {
+            const cartItems = document.querySelectorAll('.cart-item');
+            const orderItems = [];
+
+            cartItems.forEach((item) => {
+                const food = item.querySelector('.food').textContent;
+                const quantity = parseInt(item.querySelector('.quantity').textContent);
+                const price = parseFloat(item.querySelector('.price').textContent);
+
+                orderItems.push({ food, quantity, price});
+            });
+            return orderItems;
+        }
+
+        // Function to submit the order
+        async function submitOrder() {
             const tableNumber = document.getElementById('table-number').value; // Get the table number value
 
             if (tableNumber === "") {
@@ -391,10 +417,67 @@
 
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
-                cart = [];
-                updateCart();
-                window.location.href = '/order-receipt';
+                const orderItems = getOrderItems();
+                const tableNo = Number(document.getElementById('table-number').value);
+                const totalPrice = Number(document.getElementById('total-price').textContent);
+                const reqBody = {
+                    'orderItems': orderItems, 
+                    'tableNo': tableNo, 
+                    'totalPrice': totalPrice
+                };
+                console.log(reqBody);
+
+                /*
+                try {
+                    const response = await fetch('/submitOrder', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(reqBody)
+                    });
+
+                    if (response.ok) {
+                        alert('Order submitted successfully');
+                    } else {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error);
+                    }
+                    } catch (err) {
+                        console.error(err.message);
+                        alert('An error occurred while submitting the order');
+                    }
+                    */
+                    alert('Order submitted successfully');
+                    window.location.href = '/order-receipt';
             }
+        }
+
+        // Function to create the order data object
+        function createOrderData() {
+
+            /*
+            console.log("Orders: " + orderItems);
+            console.log("Table No: " + tableNo);
+            console.log("Total Price: " + totalPrice);
+            */
+
+            
+            
+
+            /*
+            const orderData = {
+                orderItems,
+                tableNo,
+                totalPrice
+            };
+
+            return orderData;
+            */
+        }
+
+        function confirmOrder() {
+            
         }
 
         document.addEventListener('DOMContentLoaded', () => {

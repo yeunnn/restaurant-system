@@ -1,7 +1,7 @@
 // import module `mongoose`
 var mongoose = require('mongoose');
 
-var orders = new mongoose.Schema({
+var orderItem = new mongoose.Schema({
     food: {
         type: String,
         required: true
@@ -34,7 +34,7 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    myOrder:[orders]
+    myOrder:[orderItem]
 });
 
 /*
