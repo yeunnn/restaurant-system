@@ -15,6 +15,7 @@ const menuController = {
     const orderItems = req.body.orderItems;
     const tableNo = req.body.tableNo;
     const totalPrice = req.body.totalPrice;
+    console.log('orderItems = ' + orderItems + ', totalPrice = ' + totalPrice+ ', tableNo = ' + tableNo);
     
   
     // Validate and handle missing values

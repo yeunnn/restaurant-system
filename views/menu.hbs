@@ -391,8 +391,6 @@
 
                 orderItems.push({ food, quantity, price});
             });
-
-            console.log(orderItems)
             return orderItems;
         }
 
@@ -402,9 +400,14 @@
             const tableNo = Number(document.getElementById('table-number').value);
             const totalPrice = Number(document.getElementById('total-price').textContent);
 
+            console.log("Orders: " + orderItems);
             console.log("Table No: " + tableNo);
             console.log("Total Price: " + totalPrice);
+            
+            var reqBody = {'orderItems': orderItems, 'tableNo': tableNo, 'totalPrice': totalPrice};
+            return reqBody;
 
+            /*
             const orderData = {
                 orderItems,
                 tableNo,
@@ -412,6 +415,7 @@
             };
 
             return orderData;
+            */
         }
 
         // Function to submit the order
@@ -432,7 +436,7 @@
 
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
-                const orderData = createOrderData();
+                var orderData = createOrderData();
                 const JSONbody = JSON.stringify(orderData);
 
                 try {
