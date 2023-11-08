@@ -400,10 +400,12 @@
             const tableNo = Number(document.getElementById('table-number').value);
             const totalPrice = Number(document.getElementById('total-price').textContent);
 
+            /*
             console.log("Orders: " + orderItems);
             console.log("Table No: " + tableNo);
             console.log("Total Price: " + totalPrice);
-            
+            */
+
             var reqBody = {'orderItems': orderItems, 'tableNo': tableNo, 'totalPrice': totalPrice};
             return reqBody;
 
@@ -437,6 +439,7 @@
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
                 var orderData = createOrderData();
+                console.log(orderData);
                 const JSONbody = JSON.stringify(orderData);
 
                 try {
