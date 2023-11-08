@@ -16,6 +16,7 @@ const app = express();
 
 // Parse JSON bodies
 app.use(bodyParser.json());
+app.use(express.json());
 
 /*
     execute function getIndex()

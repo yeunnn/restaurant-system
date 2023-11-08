@@ -16,7 +16,7 @@ const orderItemSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-  items: [orderItemSchema],
+  items: [orderItemSchema], // Square brackets indicate an array of embedded documents
   total: {
     type: Number,
     required: true,

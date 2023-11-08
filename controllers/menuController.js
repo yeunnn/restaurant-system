@@ -13,7 +13,7 @@ const menuController = {
 
   submitOrder: async function (req, res) {
     try {
-      var orderItems = req.body.orderItems;
+      var orderItems = JSON.parse(req.body.orderItems); // Parse the orderItems string into an array of objects
       var tableNo = Number(req.body.tableNo);
       var totalPrice = Number(req.body.totalPrice);
   
@@ -21,12 +21,19 @@ const menuController = {
   
       // Validate and handle missing values
       if (!orderItems || !tableNo || !totalPrice) {
-        return res.status(400).json({ error: 'Missing Data: orderItems = ' + orderItems + ', totalPrice = ' + totalPrice + ', tableNo = ' + tableNo});
+        return res.status(400).json({ error: 'Missing Data: orderItems = ' + orderItems + ', totalPrice = ' + totalPrice + ', tableNo = ' + tableNo });
       }
+  
+      // Convert order items to match orderItemSchema
+      const formattedOrderItems = orderItems.map(item => ({
+        food: item.food,
+        quantity: item.quantity,
+        price: item.price,
+      }));
   
       // Process the order data
       const order = new Order({
-        items: orderItems,
+        items: formattedOrderItems,
         total: totalPrice,
         tableNo: tableNo,
       });
@@ -42,6 +49,6 @@ const menuController = {
       res.status(500).json({ error: 'An error occurred while submitting the order' });
     }
   }
-};
+}
 
 module.exports = menuController;
