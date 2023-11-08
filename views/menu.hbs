@@ -129,11 +129,11 @@
                 <div id="cart" class="cart-container">
                     <h2>Cart</h2>
                     <div id="cart-items"></div>
-                    <p>Total: <span>P</span><span id="total-price">0.00</span></p>
+                    <p><span>Total: Php</span><input id="total-price" type="text" name="totalPrice" value="0.00" readonly></p>
                     <button type ="submit" id="orderBtn" onclick="submitOrder()">Order</button>
                     <div class="table-no-style">
                         <label for="table-number">Table No.</label>
-                        <input type="number" id="table-number" min="1" required>
+                        <input type="number" id="table-number" min="1" name="tableNo" required>
                     </div>
                 </div>
             </form>
@@ -342,6 +342,7 @@
             cart.forEach(item => {
                 const cartItemElement = document.createElement('div');
                 cartItemElement.classList.add('cart-item');
+                cartItemElement.setAttribute("name","orderItems[]");
 
                 const image = document.createElement('img');
                 image.src = item.image;
@@ -349,18 +350,21 @@
 
                 const itemName = document.createElement('span');
                 itemName.textContent = item.name;
-                itemName.className = "food-name";
+                itemName.className = "food";
+                itemName.setAttribute("name","food");
                 cartItemElement.appendChild(itemName);
 
                 const itemQuantity = document.createElement('span');
                 itemQuantity.textContent = `x ${item.quantity}`;
                 itemQuantity.className = "quantity";
+                itemQuantity.setAttribute("name","quantity");
                 cartItemElement.appendChild(itemQuantity);
 
                 const itemPrice = document.createElement('span');
                 const price = parseFloat(item.price.substring(1));
                 itemPrice.textContent = `= P${(price * item.quantity).toFixed(2)}`;
                 itemPrice.className = "price";
+                itemPrice.setAttribute("name","price");
                 cartItemElement.appendChild(itemPrice);
 
                 const removeButton = document.createElement('button');
@@ -376,7 +380,8 @@
             });
 
             const totalPriceElement = document.getElementById('total-price');
-            totalPriceElement.textContent = `${totalPrice.toFixed(2)}`;
+            totalPriceElement.setAttribute("value", `${totalPrice.toFixed(2)}`)
+            //totalPriceElement.textContent = `${totalPrice.toFixed(2)}`;
         }
 
         // Functions to retrieve order items and table number from the cart
@@ -385,39 +390,13 @@
             const orderItems = [];
 
             cartItems.forEach((item) => {
-                const food = item.querySelector('.food-name').textContent;
+                const food = item.querySelector('.food').textContent;
                 const quantity = parseInt(item.querySelector('.quantity').textContent);
                 const price = parseFloat(item.querySelector('.price').textContent);
 
                 orderItems.push({ food, quantity, price});
             });
             return orderItems;
-        }
-
-        // Function to create the order data object
-        function createOrderData() {
-            const orderItems = getOrderItems();
-            const tableNo = Number(document.getElementById('table-number').value);
-            const totalPrice = Number(document.getElementById('total-price').textContent);
-
-            /*
-            console.log("Orders: " + orderItems);
-            console.log("Table No: " + tableNo);
-            console.log("Total Price: " + totalPrice);
-            */
-
-            var reqBody = {'orderItems': orderItems, 'tableNo': tableNo, 'totalPrice': totalPrice};
-            return reqBody;
-
-            /*
-            const orderData = {
-                orderItems,
-                tableNo,
-                totalPrice
-            };
-
-            return orderData;
-            */
         }
 
         // Function to submit the order
@@ -438,21 +417,28 @@
 
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
-                var orderData = createOrderData();
-                console.log(orderData);
+                const orderItems = getOrderItems();
+                const tableNo = Number(document.getElementById('table-number').value);
+                const totalPrice = Number(document.getElementById('total-price').textContent);
+                const reqBody = {
+                    'orderItems': orderItems, 
+                    'tableNo': tableNo, 
+                    'totalPrice': totalPrice
+                };
+                console.log(reqBody);
 
+                /*
                 try {
                     const response = await fetch('/submitOrder', {
                         method: 'POST',
                         headers: {
                         'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(orderData)
+                        body: JSON.stringify(reqBody)
                     });
 
                     if (response.ok) {
                         alert('Order submitted successfully');
-                        // Clear the cart or perform any other necessary actions
                     } else {
                         const errorData = await response.json();
                         throw new Error(errorData.error);
@@ -461,8 +447,33 @@
                         console.error(err.message);
                         alert('An error occurred while submitting the order');
                     }
+                    */
+                    alert('Order submitted successfully');
                     window.location.href = '/order-receipt';
             }
+        }
+
+        // Function to create the order data object
+        function createOrderData() {
+
+            /*
+            console.log("Orders: " + orderItems);
+            console.log("Table No: " + tableNo);
+            console.log("Total Price: " + totalPrice);
+            */
+
+            
+            
+
+            /*
+            const orderData = {
+                orderItems,
+                tableNo,
+                totalPrice
+            };
+
+            return orderData;
+            */
         }
 
         function confirmOrder() {
