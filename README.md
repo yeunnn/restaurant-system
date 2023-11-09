@@ -6,7 +6,7 @@
 5. Run "node index.js". This will start the local server. Use "localhost:3000" to get access to the server through a browser.
 
 Changelog (11/9/2023)
-So the main changes: The website is kind of restructured na so no more login and sign up for users. 
+- So the main changes: The website is kind of restructured na so no more login and sign up for users. 
 1. They can directly order sa menu to prevent hassle. 
 2. And, in the cart there's no more table no. its now replaced by the option of Dine in or takeout in which sir in the previous sprints that we should look into having takeouts 
 3. The order receipt, now shows the respective order the customer has and their order id to know which one is theirs. This is done when a customer does a order in the menu
