@@ -14,3 +14,7 @@ Changelog (11/9/2023)
 - The staff page, is also similar to the order status but with a few buttons for the staff to manage it but mainly just front end, no functions yet
 
 Other planned changes:
+- Password hashing
+- Admin account - to sign up staff (so new feature page yan)
+- Random orders problem
+- session for admin/staff?
