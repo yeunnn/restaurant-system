@@ -18,3 +18,4 @@ Other planned changes:
 - Admin account - to sign up staff (so new feature page yan)
 - Random orders problem
 - session for admin/staff?
+- implementation of ability of staff to manage orders
