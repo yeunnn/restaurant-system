@@ -4,6 +4,8 @@ const db = require('../models/db.js');
 // import module `User` from `../models/UserModel.js`
 const User = require('../models/UserModel.js');
 
+// import module `User` from `../models/UserModel.js`
+const Order = require('../models/OrderModel.js');
 
 const staffloginController= {
 
@@ -26,16 +28,23 @@ const staffloginController= {
             var user = {
                 username: username
             };
-            var response = await db.findOne(User,user,'username position myOrder password');
-            if (response != null && response.position != 'customer'){
+            var response = await db.findOne(User,user,'username password position');
+            if (response != null && (response.position == 'Admin' || response.position == 'Staff')){
                 if(response.password == password){
-                    var details = {
-                        position: response.position,
-                        active: 'staff-page'
-                    };
                     //response.active = 'index';
                     //res.locals.staffusername = response.username;
-                    res.render('staff-page', details);
+
+                    var projection = 'items orderType status orderID';
+
+                    var result = await db.findMany(Order, {}, projection);
+                    //result.active = "order-status";
+                    //console.log(result);
+
+                    // Assuming `results` is an array of orders
+                    result.sort((a, b) => b.orderID - a.orderID);
+
+                    res.render('staff-page', {result, active:'staff-page'});
+                    //res.render('staff-page', details);
                 }else{
                     res.render('error',{error:'Wrong password.'});
                 }

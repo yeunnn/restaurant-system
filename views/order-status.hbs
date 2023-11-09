@@ -43,58 +43,35 @@
         <div class="container">
             <div class="section-heading">
                 <h6>Order Status</h6>
-                <h2>Table #7</h2>
             </div>
+            <br>
+            {{#each result}}
+            <h2>Order ID {{orderID}}</h2>
+            <h4>{{orderType}}</h4>
             <div class="table-responsive rounded-table">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col"></th>
                             <th scope="col">Item Name</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Quantity</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#each items}}
                         <tr>
-                            <th scope="row">1</th>
-                            <td><img src="/images/ossu-food1.PNG" alt="Takoyaki" class="rounded-image"></td>
-                            <td>Takoyaki</td>
-                            <td class="status"><span class="served">Served</span></td>
+                            <td>{{food}}</td>
+                            <td>{{quantity}}</td>
                         </tr>
+                        {{/each}}
                         <tr>
-                            <th scope="row">2</th>
-                            <td><img src="/images/ossu-food2.PNG" alt="Seafood Fried" class="rounded-image"></td>
-                            <td>Seafood Fried</td>
-                            <td class="status"><span class="preparing">Preparing</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td><img src="/images/ossu-food3.PNG" alt="Fried Noodles" class="rounded-image"></td>
-                            <td>Fried Noodles</td>
-                            <td class="status"><span class="served">Served</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td><img src="/images/ossu-food4.PNG" alt="Beef Ramen" class="rounded-image"></td>
-                            <td>Beef Ramen</td>
-                            <td class="status"><span class="served">Served</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td><img src="/images/ossu-food5.PNG" alt="Dumpling" class="rounded-image"></td>
-                            <td>Dumpling</td>
-                            <td class="status"><span class="served">Served</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td><img src="/images/ossu-food6.PNG" alt="Pork Katsu Karee" class="rounded-image"></td>
-                            <td>Pork Katsu Karee</td>
-                            <td class="status"><span class="served">Served</span></td>
+                            <td class="status"><span class="preparing">{{status}}</span></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <hr>
+            {{/each}}
         </div>
     </section>
     

@@ -34,6 +34,10 @@ hbs.registerHelper('ifCondN', function(v1, v2, options) {
     return options.inverse(this);
   });
 
+hbs.registerHelper('add1', function(v) {
+    return Number(v)+1;
+});
+
 // parses incoming requests with urlencoded payloads
 app.use(express.urlencoded({extended: true}));
 

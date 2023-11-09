@@ -8,17 +8,9 @@ db.connect();
 add();
 async function add(){
     var UserSchema = {
-        username: 'sample_user1',
-        password: 'user1',
-        position: 'customer',
-        myOrder: [
-        {
-            food: 'text',
-            quantity: 1,
-            price: 10,
-            id: 1
-        }
-        ]
+        username: 'SampleAdmin1',
+        password: 'admin12345',
+        position: 'Admin'
     }
 
     var response = await db.insertOne(User, UserSchema);
@@ -29,37 +21,15 @@ async function add(){
     }
     
     var UserSchema = {
-        username: 'john',
-        password: 'computer123',
-        position: 'customer',
-        myReservations: [
-        {
-            food: 'text',
-            quantity: 1,
-            price: 10,
-            id: 1
-        }
-        ]
+        username: 'SampleStaff1',
+        password: 'staff12345',
+        position: 'Staff'
     }
 
     var response = await db.insertOne(User, UserSchema);
     if(response) {
         console.log("added 1 doc");
     } else{
-        console.log("failed");
-    }
-
-    var UserSchema = {
-        username: 'arren',
-        password: 'CCAPDEV_prof',
-        position: 'staff',
-        myReservations: null
-    }
-
-    var response = await db.insertOne(User, UserSchema);
-    if(response){
-        console.log("added 1 doc");
-    }else{
         console.log("failed");
     }
 }

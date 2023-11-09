@@ -1,5 +1,6 @@
 // import module `express`
 const express = require('express');
+const bodyParser = require('body-parser');
 
 // import module `controller` from `../controllers/controller.js`
 const controller = require('../controllers/controller.js');
@@ -13,6 +14,10 @@ const staffpageController = require('../controllers/staffpageController.js');
 
 const app = express();
 
+// Parse JSON bodies
+app.use(bodyParser.json());
+app.use(express.json());
+
 /*
     execute function getIndex()
     defined in object `controller` in `../controllers/controller.js`
@@ -21,9 +26,12 @@ const app = express();
 app.get('/', controller.getIndex);
 app.get('/index', controller.userIndex);
 
+//Menu Controller
 app.get('/menu', menuController.getMenu);
+app.post('/submit-order', menuController.submitOrder);
 
 app.get('/order-receipt', orderreceiptController.getOrderReceipt);
+
 app.get('/order-status', orderstatusController.getOrderStatus);
 
 app.get('/staff-login', staffloginController.getStaffLogin);

@@ -2,7 +2,7 @@
 const db = require('../models/db.js');
 
 // import module `User` from `../models/UserModel.js`
-const User = require('../models/UserModel.js');
+const Order = require('../models/OrderModel.js');
 
 /*
     defines an object which contains functions executed as callback
@@ -11,10 +11,17 @@ const User = require('../models/UserModel.js');
 const orderstatusController = {
 
     getOrderStatus: async function (req, res) {
-        var details = {
-            active:'order-status'
-        };
-        res.render('order-status',details);
+        var projection = 'items orderType status orderID';
+
+        var result = await db.findMany(Order, {}, projection);
+        //result.active = "order-status";
+        //console.log(result);
+        // Assuming `results` is an array of orders
+        result.sort((a, b) => b.orderID - a.orderID);
+
+        //res.render('order-status', { result: results });
+
+        res.render('order-status', {result, active:'order-status'});
     }
 }
 

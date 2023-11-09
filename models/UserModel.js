@@ -1,25 +1,6 @@
 // import module `mongoose`
 var mongoose = require('mongoose');
 
-var orders = new mongoose.Schema({
-    food: {
-        type: String,
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    id:{
-        type: Number,
-        required: true
-    }
-  });
-
 // defines the schema for collection `users`
 var UserSchema = new mongoose.Schema({
     username: {
@@ -33,8 +14,7 @@ var UserSchema = new mongoose.Schema({
     position: {
         type: String,
         required: true
-    },
-    myOrder:[orders]
+    }
 });
 
 /*

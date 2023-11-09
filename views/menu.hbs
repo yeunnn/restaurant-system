@@ -125,17 +125,22 @@
             <div id="menu" class="menu-container"></div>
             <br>
             <div id="pagination"></div>
-            <div id="cart" class="cart-container">
-                <h2>Cart</h2>
-                <div id="cart-items"></div>
-                <p>Total: <span id="total-price">$0.00</span></p>
-                <button onclick="confirmOrder()">Order</button>
-                <div class="table-no-style">
-                    <label for="table-number">Table No.</label>
-                    <input type="number" id="table-number" min="1" required>
+            <form action="/submit-order" method="post">
+                <div id="cart" class="cart-container">
+                    <h2>Cart</h2>
+                    <div id="cart-items"></div>
+                    <p><span>Total: Php</span><input id="total-price" type="text" name="totalPrice" value="0.00" readonly></p>
+                    <button id="orderBtn" onclick="submitOrder()">Order</button>
+                    <div class="table-no-style">
+                        <!-- ***** orderType ***** -->
+                        <label for="dine-in">Dine-in</label>
+                        <input type="radio" id="dine-in" name="orderType" value="Dine-in" required>
+                        <label for="takeout">Takeout</label>
+                        <input type="radio" id="takeout" name="orderType" value="Takeout" required>
+                    </div>
+                    <input type="text" id="CartInput" name="orderItems" value ="Empty" hidden readonly>
                 </div>
-            </div>
-
+            </form>
         </div>
     </section>
     
@@ -241,6 +246,7 @@
         let currentCategory = 'all';
 
         let cart = [];
+        updateCart();
 
         function renderMenu(pageNumber) {
             const menuContainer = document.getElementById('menu');
@@ -330,16 +336,17 @@
             }
         }
 
-        // Modify the updateCart function to include a remove button
         function updateCart() {
             const cartItemsContainer = document.getElementById('cart-items');
             cartItemsContainer.innerHTML = '';
 
             let totalPrice = 0;
+            const orderItems = [];
 
             cart.forEach(item => {
                 const cartItemElement = document.createElement('div');
                 cartItemElement.classList.add('cart-item');
+                cartItemElement.setAttribute("name", "orderItems[]");
 
                 const image = document.createElement('img');
                 image.src = item.image;
@@ -347,38 +354,73 @@
 
                 const itemName = document.createElement('span');
                 itemName.textContent = item.name;
+                itemName.className = "food";
+                itemName.setAttribute("name", "food");
                 cartItemElement.appendChild(itemName);
 
                 const itemQuantity = document.createElement('span');
                 itemQuantity.textContent = `x ${item.quantity}`;
+                itemQuantity.className = "quantity";
+                itemQuantity.setAttribute("name", "quantity");
                 cartItemElement.appendChild(itemQuantity);
 
                 const itemPrice = document.createElement('span');
                 const price = parseFloat(item.price.substring(1));
                 itemPrice.textContent = `= P${(price * item.quantity).toFixed(2)}`;
+                itemPrice.className = "price";
+                itemPrice.setAttribute("name", "price");
                 cartItemElement.appendChild(itemPrice);
 
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.addEventListener('click', () => {
-                    removeFromCart(item.name);
+                removeFromCart(item.name);
                 });
                 cartItemElement.appendChild(removeButton);
 
                 cartItemsContainer.appendChild(cartItemElement);
 
                 totalPrice += price * item.quantity;
+
+                // Add the order item data to the orderItems array
+                orderItems.push({
+                    food: item.name,
+                    quantity: Number(item.quantity),
+                    price: Number((price * item.quantity).toFixed(2))
+                });
             });
 
+            // Update the orderItems input field with the stringified orderItems array
+            const orderItemsInput = document.getElementById('CartInput');
+            orderItemsInput.setAttribute("value", `${JSON.stringify(orderItems)}`);
+
             const totalPriceElement = document.getElementById('total-price');
-            totalPriceElement.textContent = `P${totalPrice.toFixed(2)}`;
+            totalPriceElement.setAttribute("value", `${totalPrice.toFixed(2)}`);
         }
 
-        function confirmOrder() {
-            const tableNumber = document.getElementById('table-number').value; // Get the table number value
+        /* // Functions to retrieve order items and table number from the cart
+        function getOrderItems() {
+            const cartItems = document.querySelectorAll('.cart-item');
+            const orderItems = [];
 
-            if (tableNumber === "") {
-                alert('Please enter a table number.'); // Notify if the table number is not provided
+            cartItems.forEach((item) => {
+                const food = item.querySelector('.food').textContent;
+                const quantity = parseInt(item.querySelector('.quantity').textContent);
+                const price = parseFloat(item.querySelector('.price').textContent);
+
+                orderItems.push({ food, quantity, price});
+                console.log(food + ", " + quantity, + ", " + price);
+            });
+            return orderItems;
+        }
+        */
+
+        // Function to submit the order
+        async function submitOrder() {
+            const orderType = document.querySelector('input[name="orderType"]:checked');
+    
+            if (!orderType) {
+                alert('Please select Dine-in or Takeout.');
                 return;
             }
 
@@ -391,9 +433,37 @@
 
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
-                cart = [];
-                updateCart();
-                window.location.href = '/order-receipt';
+                //window.location.href = '/order-receipt';
+                /*
+                const reqBody = {
+                    orderItems: getOrderItems(), 
+                    tableNo: Number(document.getElementById('table-number').value), 
+                    totalPrice: Number(document.getElementById('total-price').value)
+                };
+                console.log(reqBody);
+
+                
+                try {
+                    const response = await fetch('/submitOrder', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(reqBody)
+                    });
+
+                    if (response.ok) {
+                        alert('Order submitted successfully');
+                    } else {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error);
+                    }
+                    } catch (err) {
+                        console.error(err.message);
+                        alert('An error occurred while submitting the order');
+                    }
+                    window.location.href = '/order-receipt';
+                    */
             }
         }
 
