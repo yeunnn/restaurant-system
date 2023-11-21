@@ -17,8 +17,9 @@ Other planned changes:
 - Password hashing
 - Admin feature - create staff/customer account
 - Seperate into:
-	= Guest View (For customers outside - can only see menu and static web)
-	= Customer View (For customers inside [Use Ipad] - can see all features menu with order)
-	= Admin/Staff View
+	- Guest View (For customers outside - can only see menu and static web)
+	- Customer View (For customers inside [Use Ipad] - can see all features menu with order)
+	- Admin/Staff View
 - Session for admin/staff and customer
 - Implementation of ability of staff to manage orders
+- Payment method of either over the counter or swipe credit cart
