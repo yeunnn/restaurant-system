@@ -15,7 +15,10 @@ Changelog (11/9/2023)
 
 Other planned changes:
 - Password hashing
-- Admin account - to sign up staff (so new feature page yan)
-- Random orders problem
-- session for admin/staff?
-- implementation of ability of staff to manage orders
+- Admin feature - create staff/customer account
+- Seperate into:
+	= Guest View (For customers outside - can only see menu and static web)
+	= Customer View (For customers inside [Use Ipad] - can see all features menu with order)
+	= Admin/Staff View
+- Session for admin/staff and customer
+- Implementation of ability of staff to manage orders
