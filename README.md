@@ -13,13 +13,16 @@ Changelog (11/9/2023)
 - The order status, now shows all orders made in the resto. So its like a list of all orders and customers can identify theirs based on the order id they got
 - The staff page, is also similar to the order status but with a few buttons for the staff to manage it but mainly just front end, no functions yet
 
-Other planned changes:
-- Password hashing
-- Admin feature - create staff/customer account
+Changelog (11 /23 /2023) Sprint 5
 - Seperate into:
 	- Guest View (For customers outside - can only see menu and static web)
 	- Customer View (For customers inside [Use Ipad] - can see all features menu with order)
 	- Admin/Staff View
 - Session for admin/staff and customer
 - Implementation of ability of staff to manage orders
+
+Other planned changes:
+- Password hashing
+- Admin feature - create staff/customer account
 - Payment method of either over the counter or swipe credit cart
+- Informative Errors
