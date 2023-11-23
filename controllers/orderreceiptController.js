@@ -11,10 +11,15 @@ const User = require('../models/UserModel.js');
 const orderreceiptController = {
 
     getOrderReceipt: async function (req, res) {
-        var details = {
-            active:'order-receipt'
-        };
-        res.render('order-receipt',details);
+        if (req.session.position === 'Customer') {
+            var details = {
+                active:'order-receipt'
+            };
+            res.render('order-receipt',details);
+        }
+        else{
+            res.redirect('/');
+        }
     }
 }
 

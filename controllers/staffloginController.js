@@ -29,22 +29,25 @@ const staffloginController= {
                 username: username
             };
             var response = await db.findOne(User,user,'username password position');
-            if (response != null && (response.position == 'Admin' || response.position == 'Staff')){
+            if (response != null && (response.position == 'Admin' || response.position == 'Staff' || response.position == 'Customer')){
                 if(response.password == password){
-                    //response.active = 'index';
-                    //res.locals.staffusername = response.username;
+                    // Store user information in the session
+                    req.session.user = response.username;
+                    req.session.position = response.position;
 
-                    var projection = 'items orderType status orderID';
+                    if(response.position == 'Customer') {
+                        res.render('index', {active:'index', position:response.position});
+                    }
+                    else{
+                        var projection = 'items orderType status orderID';
 
-                    var result = await db.findMany(Order, {}, projection);
-                    //result.active = "order-status";
-                    //console.log(result);
+                        var result = await db.findMany(Order, {}, projection);
 
-                    // Assuming `results` is an array of orders
-                    result.sort((a, b) => b.orderID - a.orderID);
+                        // Assuming `results` is an array of orders
+                        result.sort((a, b) => b.orderID - a.orderID);
 
-                    res.render('staff-page', {result, active:'staff-page'});
-                    //res.render('staff-page', details);
+                        res.render('staff-page', {result, active:'staff-page', position:response.position});
+                    }
                 }else{
                     res.render('error',{error:'Wrong password.'});
                 }

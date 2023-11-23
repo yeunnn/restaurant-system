@@ -14,17 +14,41 @@ const Order = require('../models/OrderModel.js');
 const staffpageController = {
 
     getStaffPage: async function (req, res) {
-        var projection = 'items orderType status orderID';
+        if (req.session.position === 'Admin' || req.session.position === 'Staff') {
+            // Redirect to login page if not authenticated
+            var projection = 'items orderType status orderID';
 
-        var result = await db.findMany(Order, {}, projection);
-        //result.active = "order-status";
-        //console.log(result);
-        // Assuming `results` is an array of orders
-        result.sort((a, b) => b.orderID - a.orderID);
+            var result = await db.findMany(Order, {}, projection);
 
-        //res.render('order-status', { result: results });
+            // Assuming `results` is an array of orders
+            result.sort((a, b) => b.orderID - a.orderID);
 
-        res.render('staff-page', {result, active:'staff-page'});
+            res.render('staff-page', {result, active:'staff-page'});
+        }
+        else{
+            res.redirect('/');
+        }
+    },
+
+    updateOrderStatus: async function (req, res) {
+        const orderId = req.params.orderId;
+        const newStatus = req.body.status;
+
+        // Update the order status in the database
+        await db.updateOne(Order, { orderID: orderId }, { status: newStatus });
+
+        // Send a JSON response
+        res.json({ message: 'Order status updated successfully' });
+    },
+
+    deleteOrder: async function (req, res) {
+        const orderId = req.params.orderId;
+
+        // Delete the order from the database
+        await db.deleteOne(Order, { orderID: orderId });
+
+        // Send a JSON response
+        res.json({ message: 'Order deleted successfully' });
     }
 }
 

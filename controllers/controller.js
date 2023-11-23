@@ -8,17 +8,23 @@ const controller = {
         as defined in `../routes/routes.js`
     */
     getIndex: function (req, res) {
-
         // render `../views/index.hbs`
-        res.render('index',{active:'index'});
+        res.render('index',{active:'index', position:'Guest'});
     },
 
     userIndex: async function (req, res) {
-        var details = {
-            active:'index'
-        };
-        
-        res.render('index',details);
+        if (req.session.position === 'Customer') {
+            // Redirect to login page if not authenticated
+            var details = {
+                active:'index',
+                position: req.session.position
+            };
+            
+            res.render('index',details);
+        }
+        else{
+            res.redirect('/');
+        }
     }
 }
 

@@ -6,10 +6,17 @@ const OrderCounter = require('../models/orderCounter.js');
 
 const menuController = {
   getMenu: async function (req, res) {
-    var details = {
-      active: 'menu'
-    };
-    res.render('menu', details);
+    if (req.session.position === 'Customer') {
+      // Redirect to login page if not authenticated
+      var details = {
+        active: 'menu',
+        position: req.session.position
+      };
+      res.render('menu', details);
+    }
+    else{
+      res.redirect('/');
+    }
   },
 
   submitOrder: async function (req, res) {

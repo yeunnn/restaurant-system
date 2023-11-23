@@ -11,17 +11,23 @@ const Order = require('../models/OrderModel.js');
 const orderstatusController = {
 
     getOrderStatus: async function (req, res) {
-        var projection = 'items orderType status orderID';
+        if (req.session.position === 'Customer') {
+            // Redirect to login page if not authenticated
+            var projection = 'items orderType status orderID';
 
-        var result = await db.findMany(Order, {}, projection);
-        //result.active = "order-status";
-        //console.log(result);
-        // Assuming `results` is an array of orders
-        result.sort((a, b) => b.orderID - a.orderID);
+            var result = await db.findMany(Order, {}, projection);
+            //result.active = "order-status";
+            //console.log(result);
+            // Assuming `results` is an array of orders
+            result.sort((a, b) => b.orderID - a.orderID);
 
-        //res.render('order-status', { result: results });
+            //res.render('order-status', { result: results });
 
-        res.render('order-status', {result, active:'order-status'});
+            res.render('order-status', {result, active:'order-status'});
+        }
+        else{
+            res.redirect('/');
+        }
     }
 }
 

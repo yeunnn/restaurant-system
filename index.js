@@ -4,6 +4,15 @@ const express = require('express');
 // import module `hbs`
 const hbs = require('hbs');
 
+// import module `express-session`
+const session = require('express-session');
+
+// import module `mongoose`
+const mongoose = require('mongoose');
+
+// import module `connect-mongo`
+const MongoStore = require('connect-mongo')(session);;
+
 // import module `routes` from `./routes/routes.js`
 const routes = require('./routes/routes.js');
 
@@ -19,7 +28,7 @@ app.set('view engine', 'hbs');
 // sets `/views/partials` as folder containing partial hbs files
 hbs.registerPartials(__dirname + '/views/partials');
 
-//code
+// Function Helpers
 hbs.registerHelper('ifCond', function(v1, v2, options) {
     if(v1 === v2) {
       return options.fn(this);
@@ -38,6 +47,18 @@ hbs.registerHelper('add1', function(v) {
     return Number(v)+1;
 });
 
+// connects to the database
+db.connect();
+
+// use `express-session`` middleware and set its options
+// use `MongoStore` as server-side session storage
+app.use(session({
+  'secret': 'restaurant-session',
+  'resave': false,
+  'saveUninitialized': false,
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+}));
+
 // parses incoming requests with urlencoded payloads
 app.use(express.urlencoded({extended: true}));
 
@@ -53,9 +74,6 @@ app.use('/', routes);
 app.use(function (req, res) {
     res.render('error');
 });
-
-// connects to the database
-db.connect();
 
 // binds the server to a specific port
 app.listen(port, function () {
