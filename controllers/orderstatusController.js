@@ -13,7 +13,7 @@ const orderstatusController = {
     getOrderStatus: async function (req, res) {
         if (req.session.position === 'Customer') {
             // Redirect to login page if not authenticated
-            var projection = 'items orderType status orderID';
+            var projection = 'items orderType status orderID timestamp';
 
             var result = await db.findMany(Order, {}, projection);
             //result.active = "order-status";

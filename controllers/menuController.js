@@ -53,7 +53,8 @@ const menuController = {
           total: totalPrice,
           orderType: orderType,
           status: status,
-          orderID: orderNumber
+          orderID: orderNumber,
+          timestamp: new Date()
         });
         
         // Save the order to the database

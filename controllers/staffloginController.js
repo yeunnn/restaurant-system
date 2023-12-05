@@ -39,7 +39,7 @@ const staffloginController= {
                         res.render('index', {active:'index', position:response.position});
                     }
                     else{
-                        var projection = 'items orderType status orderID';
+                        var projection = 'items orderType status orderID timestamp';
 
                         var result = await db.findMany(Order, {}, projection);
 

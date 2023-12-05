@@ -32,7 +32,10 @@ const orderSchema = new mongoose.Schema({
   orderID: {
     type: Number,
     required: true,
-  }
+  },
+  timestamp: {
+    type: Date,
+  },
 });
 
 const Order = mongoose.model('Order', orderSchema);
