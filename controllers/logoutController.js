@@ -18,7 +18,7 @@ const logoutController = {
             if(err) throw err;
 
             /*
-                redirects the client to `/profile` using HTTP GET,
+                redirects the client to `/` using HTTP GET,
                 defined in `../routes/routes.js`
             */
             res.redirect('/');

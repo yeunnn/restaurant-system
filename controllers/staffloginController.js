@@ -48,9 +48,6 @@ const staffloginController= {
                             res.render('index', {active:'index', position:response.position});
                         }
                         else{
-                            //var projection = 'items orderType status orderID timestamp';
-                            //var result = await db.findMany(Order, {}, projection);
-
                             // Assuming `results` is an array of orders
                             result.sort((a, b) => b.orderID - a.orderID);
 
@@ -66,27 +63,11 @@ const staffloginController= {
                 // Set error message and render the login view again
                 res.render('staff-login', { errorMessage: 'This user was not found.' });
             }
-        
-            /*
-            upon adding a user to the database,
-            redirects the client to `/success` using HTTP GET,
-            defined in `../routes/routes.js`
-            passing values using URL
-            which calls getSuccess() method
-            defined in `./successController.js`
-
-            if(response != null){
-                res.redirect('/success?fName=' + fName +'&lName=' + lName + '&idNum=' + idNum);
-            }
-            else {
-                res.render('error');
-            }
-            */
     }
 }
 
 /*
-    exports the object `signupController` (defined above)
+    exports the object `staffloginController` (defined above)
     when another script exports from this file
 */
 module.exports = staffloginController;

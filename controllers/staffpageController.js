@@ -9,13 +9,12 @@ const Order = require('../models/OrderModel.js');
 
 /*
     defines an object which contains functions executed as callback
-    when a client requests for `profile` paths in the server
+    when a client requests for `staff-page` paths in the server
 */
 const staffpageController = {
 
     getStaffPage: async function (req, res) {
         if (req.session.position === 'Admin' || req.session.position === 'Staff') {
-            // Redirect to login page if not authenticated
             var projection = 'items orderType status orderID timestamp payment';
 
             var result = await db.findMany(Order, {}, projection);
@@ -53,7 +52,7 @@ const staffpageController = {
 }
 
 /*
-    exports the object `profileController` (defined above)
+    exports the object `staffpageController` (defined above)
     when another script exports from this file
 */
 module.exports = staffpageController;

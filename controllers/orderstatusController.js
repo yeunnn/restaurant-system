@@ -6,22 +6,17 @@ const Order = require('../models/OrderModel.js');
 
 /*
     defines an object which contains functions executed as callback
-    when a client requests for `profile` paths in the server
+    when a client requests for `order-status` paths in the server
 */
 const orderstatusController = {
 
     getOrderStatus: async function (req, res) {
         if (req.session.position === 'Customer') {
-            // Redirect to login page if not authenticated
             var projection = 'items orderType status orderID timestamp';
 
             var result = await db.findMany(Order, {}, projection);
-            //result.active = "order-status";
-            //console.log(result);
             // Assuming `results` is an array of orders
             result.sort((a, b) => b.orderID - a.orderID);
-
-            //res.render('order-status', { result: results });
 
             res.render('order-status', {result, active:'order-status'});
         }
@@ -32,7 +27,7 @@ const orderstatusController = {
 }
 
 /*
-    exports the object `profileController` (defined above)
+    exports the object `orderstatusController` (defined above)
     when another script exports from this file
 */
 module.exports = orderstatusController;

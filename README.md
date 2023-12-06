@@ -21,8 +21,7 @@ Changelog (11 /23 /2023) Sprint 5
 - Session for admin/staff and customer
 - Implementation of ability of staff to manage orders
 
-Other planned changes:
+Changelog (12 /7 /2023) Sprint 6
 - Password hashing
-- Admin feature - create staff/customer account
 - Payment method of either over the counter or swipe credit cart
 - Informative Errors

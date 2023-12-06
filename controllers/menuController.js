@@ -22,7 +22,6 @@ const menuController = {
   submitOrder: async function (req, res) {
     try {
       var orderItems = JSON.parse(req.body.orderItems); // Parse the orderItems string into an array of objects
-      //var tableNo = Number(req.body.tableNo);
       var totalPrice = Number(req.body.totalPrice);
       var status = 'Preparing';
       var orderType = req.body.orderType; // Get the selected order type

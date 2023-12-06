@@ -28,7 +28,7 @@ app.set('view engine', 'hbs');
 // sets `/views/partials` as folder containing partial hbs files
 hbs.registerPartials(__dirname + '/views/partials');
 
-// Function Helpers
+/* Function Helpers */
 hbs.registerHelper('ifCond', function(v1, v2, options) {
     if(v1 === v2) {
       return options.fn(this);
