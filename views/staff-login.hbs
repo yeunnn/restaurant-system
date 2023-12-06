@@ -17,6 +17,12 @@
 		<div class="bg-img">
 			<div class="content">
 				<header>Staff Login Form</header>
+				<!-- Add this where you want the error message to appear -->
+				{{#if errorMessage}}
+					<div class="error-box">
+						{{errorMessage}}
+					</div>
+				{{/if}}
 				<form action="/staff-login" method="post">
 					<div class="field">
 						<span class="fa fa-user"></span>
@@ -32,6 +38,8 @@
 						<input type="submit" value="Login" name="submit">
 					</div>
 				</form>
+				<br>
+				<a href="/" class="return-home">Back to Home</a>
 			</div>
 		</div>
 

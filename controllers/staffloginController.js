@@ -7,6 +7,9 @@ const User = require('../models/UserModel.js');
 // import module `User` from `../models/UserModel.js`
 const Order = require('../models/OrderModel.js');
 
+// import module `bcrypt`
+const bcrypt = require('bcrypt');
+
 const staffloginController= {
 
     getStaffLogin: function (req, res) {
@@ -24,35 +27,44 @@ const staffloginController= {
             */
             var username = req.body.username;
             var password = req.body.password;
-                
+            
             var user = {
                 username: username
             };
             var response = await db.findOne(User,user,'username password position');
+
+            var projection = 'items orderType status orderID timestamp';
+            var result = await db.findMany(Order, {}, projection);
+
             if (response != null && (response.position == 'Admin' || response.position == 'Staff' || response.position == 'Customer')){
-                if(response.password == password){
-                    // Store user information in the session
-                    req.session.user = response.username;
-                    req.session.position = response.position;
+                
+                bcrypt.compare(password, response.password, function(err, equal) {
+                    if(equal) {
+                        // Store user information in the session
+                        req.session.user = response.username;
+                        req.session.position = response.position;
 
-                    if(response.position == 'Customer') {
-                        res.render('index', {active:'index', position:response.position});
+                        if(response.position == 'Customer') {
+                            res.render('index', {active:'index', position:response.position});
+                        }
+                        else{
+                            //var projection = 'items orderType status orderID timestamp';
+                            //var result = await db.findMany(Order, {}, projection);
+
+                            // Assuming `results` is an array of orders
+                            result.sort((a, b) => b.orderID - a.orderID);
+
+                            res.render('staff-page', {result, active:'staff-page', position:response.position});
+                        }
                     }
-                    else{
-                        var projection = 'items orderType status orderID timestamp';
-
-                        var result = await db.findMany(Order, {}, projection);
-
-                        // Assuming `results` is an array of orders
-                        result.sort((a, b) => b.orderID - a.orderID);
-
-                        res.render('staff-page', {result, active:'staff-page', position:response.position});
+                    else {
+                        // Set error message and render the login view again
+                        res.render('staff-login', { errorMessage: 'Wrong password.' });
                     }
-                }else{
-                    res.render('error',{error:'Wrong password.'});
-                }
+                });
             }else{
-                res.render('error',{error:'This user was not found.'});
+                // Set error message and render the login view again
+                res.render('staff-login', { errorMessage: 'This user was not found.' });
             }
         
             /*
@@ -69,7 +81,7 @@ const staffloginController= {
             else {
                 res.render('error');
             }
-        */
+            */
     }
 }
 

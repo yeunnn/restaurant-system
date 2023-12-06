@@ -92,8 +92,29 @@
         }
 
         .table-no-style {
+            float: left;
+        }
+
+        .payment-options {
             float: right;
         }
+
+        .new-line-div {
+            clear: both;
+        }
+
+        .btn-div {
+            text-align: right;
+        }
+
+        .order-btn-style{
+            background-color: #d0d2d8;
+        }
+
+        .total-padding {
+            margin-top: 10px;
+        }
+
     </style>
 
     </head>
@@ -125,18 +146,31 @@
             <div id="menu" class="menu-container"></div>
             <br>
             <div id="pagination"></div>
-            <form action="/submit-order" method="post">
+            <form action="/submit-order" method="post" id="cart-form">
                 <div id="cart" class="cart-container">
                     <h2>Cart</h2>
                     <div id="cart-items"></div>
-                    <p><span>Total: Php</span><input id="total-price" type="text" name="totalPrice" value="0.00" readonly></p>
-                    <button id="orderBtn" onclick="submitOrder()">Order</button>
+                    <p class="total-padding"><span>Total: Php</span><input id="total-price" type="text" name="totalPrice" value="0.00" readonly></p>
+                    
                     <div class="table-no-style">
                         <!-- ***** orderType ***** -->
+                        <h5>Type of Order</h5>
                         <label for="dine-in">Dine-in</label>
                         <input type="radio" id="dine-in" name="orderType" value="Dine-in" required>
                         <label for="takeout">Takeout</label>
                         <input type="radio" id="takeout" name="orderType" value="Takeout" required>
+                    </div>
+                    <div class="payment-options">
+                        <!-- ***** payment ***** -->
+                        <h5>Mode of Payment</h5>
+                        <label for="over-the-counter">Over the Counter</label>
+                        <input type="radio" id="over-the-counter" name="paymentOption" value="Over the Counter" required>
+                        <label for="credit-card">Credit Card</label>
+                        <input type="radio" id="credit-card" name="paymentOption" value="Credit Card" required>
+                    </div>
+                    <div class="new-line-div"></div>
+                    <div class="btn-div">
+                        <button id="orderBtn" onclick="submitOrder(event)" class="order-btn-style">Order</button>
                     </div>
                     <input type="text" id="CartInput" name="orderItems" value ="Empty" hidden readonly>
                 </div>
@@ -398,29 +432,18 @@
             totalPriceElement.setAttribute("value", `${totalPrice.toFixed(2)}`);
         }
 
-        /* // Functions to retrieve order items and table number from the cart
-        function getOrderItems() {
-            const cartItems = document.querySelectorAll('.cart-item');
-            const orderItems = [];
-
-            cartItems.forEach((item) => {
-                const food = item.querySelector('.food').textContent;
-                const quantity = parseInt(item.querySelector('.quantity').textContent);
-                const price = parseFloat(item.querySelector('.price').textContent);
-
-                orderItems.push({ food, quantity, price});
-                console.log(food + ", " + quantity, + ", " + price);
-            });
-            return orderItems;
-        }
-        */
-
         // Function to submit the order
-        async function submitOrder() {
+        async function submitOrder(event) {
             const orderType = document.querySelector('input[name="orderType"]:checked');
-    
+            const payment = document.querySelector('input[name="paymentOption"]:checked');
+
             if (!orderType) {
                 alert('Please select Dine-in or Takeout.');
+                return;
+            }
+
+            if (!payment) {
+                alert('Please select Over the Counter or Credit Card.');
                 return;
             }
 
@@ -433,37 +456,9 @@
 
             if (confirmation) {
                 alert('Order placed successfully! Thank you for your purchase.');
-                //window.location.href = '/order-receipt';
-                /*
-                const reqBody = {
-                    orderItems: getOrderItems(), 
-                    tableNo: Number(document.getElementById('table-number').value), 
-                    totalPrice: Number(document.getElementById('total-price').value)
-                };
-                console.log(reqBody);
-
-                
-                try {
-                    const response = await fetch('/submitOrder', {
-                        method: 'POST',
-                        headers: {
-                        'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(reqBody)
-                    });
-
-                    if (response.ok) {
-                        alert('Order submitted successfully');
-                    } else {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error);
-                    }
-                    } catch (err) {
-                        console.error(err.message);
-                        alert('An error occurred while submitting the order');
-                    }
-                    window.location.href = '/order-receipt';
-                    */
+            } else {
+                // Prevent form submission if the user does not confirm
+                event.preventDefault();
             }
         }
 

@@ -35,7 +35,12 @@ const orderSchema = new mongoose.Schema({
   },
   timestamp: {
     type: Date,
+    required: true,
   },
+  payment: {
+    type: String,
+    required: true,
+  }
 });
 
 const Order = mongoose.model('Order', orderSchema);

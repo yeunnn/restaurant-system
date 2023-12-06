@@ -26,12 +26,13 @@ const menuController = {
       var totalPrice = Number(req.body.totalPrice);
       var status = 'Preparing';
       var orderType = req.body.orderType; // Get the selected order type
+      var paymentType = req.body.paymentOption;
   
       //debugging console
       //console.log('orderItems = ' + orderItems + ', totalPrice = ' + totalPrice + ', orderType = ' + orderType);
   
       // Validate and handle missing values
-      if (!orderItems || !orderType || !totalPrice) {
+      if (!orderItems || !orderType || !totalPrice || !paymentType) {
         //return res.status(400).json({ error: 'Missing Data: orderItems = ' + orderItems + ', totalPrice = ' + totalPrice + ', tableNo = ' + tableNo });
         res.render('menu', {active:'menu'});
       }
@@ -54,7 +55,8 @@ const menuController = {
           orderType: orderType,
           status: status,
           orderID: orderNumber,
-          timestamp: new Date()
+          timestamp: new Date(),
+          payment: paymentType,
         });
         
         // Save the order to the database
