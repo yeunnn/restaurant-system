@@ -33,7 +33,7 @@ const staffloginController= {
             };
             var response = await db.findOne(User,user,'username password position');
 
-            var projection = 'items orderType status orderID timestamp';
+            var projection = 'items orderType status orderID timestamp payment';
             var result = await db.findMany(Order, {}, projection);
 
             if (response != null && (response.position == 'Admin' || response.position == 'Staff' || response.position == 'Customer')){

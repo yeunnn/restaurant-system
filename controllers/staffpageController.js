@@ -16,7 +16,7 @@ const staffpageController = {
     getStaffPage: async function (req, res) {
         if (req.session.position === 'Admin' || req.session.position === 'Staff') {
             // Redirect to login page if not authenticated
-            var projection = 'items orderType status orderID timestamp';
+            var projection = 'items orderType status orderID timestamp payment';
 
             var result = await db.findMany(Order, {}, projection);
 

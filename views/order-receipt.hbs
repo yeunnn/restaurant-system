@@ -49,6 +49,7 @@
                         <!-- <p>Date: October 12, 2023</p> -->
                         <p>Order ID {{orderID}}</p>
                         <p>{{orderType}}</p>
+                        <p>Payment Method: {{payment}}</p>
                     </div>
                     <table class="receipt-items">
                         <tr>
@@ -64,22 +65,7 @@
                         <tr>
                             <td colspan="2" style="text-align: right;"><strong>Total: {{total}}</strong></td>
                         </tr>
-                        <!--
-                        {{#each myReservations}}
-                        <tr>
-                            <td>
-                                {{add1 @index}}. Lab {{add1 lab}}, {{getdate date}}, {{gettime time}} Created on: {{created}}
-                            </td>
-                            <td style = "width: 4%; border:0px;"><a class = "button2" onclick = "editReserve('{{../email}}','{{../email}}','{{id}}')"> Edit </a></td>
-                        </tr>
-                        {{/each}}
-                        -->
                     </table>
-                    <!--
-                        <div class = "order-id">
-                            <h4>Order ID: 23</h4>
-                        </div>
-                    -->
                 </div>
             </div>
             <div class="center-button">
